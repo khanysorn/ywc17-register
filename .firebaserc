@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "ywc17-register"
+  },
+  "targets": {
+    "ywc17-register": {
+      "hosting": {
+        "register": [
+          "ywc17-register"
+        ],
+        "register-dev": [
+          "ywc17-register-dev"
+        ]
+      }
+    }
+  }
+}

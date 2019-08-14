@@ -1,0 +1,45 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:12
+    working_directory: ~/repo/
+    branches:
+      only:
+        - staging
+        - master
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          keys:
+            - yarn-v1-{{ checksum "yarn.lock" }}
+            - yarn-v1-
+      - run:
+          name: Install NPM modules
+          command: |
+            yarn install
+            yarn add -D firebase-tools
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn/v1
+      - run:
+          name: Build
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              yarn build
+            else
+              yarn build-dev
+            fi
+      - run:
+          name: Deploy
+          command: |
+            ./node_modules/.bin/firebase use ywc17-register
+            if [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              ./node_modules/.bin/firebase deploy --non-interactive --only hosting:register-dev --token=$FIREBASE_TOKEN
+            fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              ./node_modules/.bin/firebase deploy --non-interactive --only hosting:register --token=$FIREBASE_TOKEN
+            fi
