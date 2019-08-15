@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "REACT_APP_API_DEV=true react-app-rewired start",
-    "build": "react-scripts react-app-rewired build",
+    "start": "REACT_APP_API_DEV=true react-scripts start",
+    "build": "react-scripts build",
     "build-dev": "REACT_APP_API_DEV=true react-scripts build",
-    "test": "react-app-rewired test",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "yarn run lint --fix",
     "lint": "tslint './src/**/*.{ts,tsx}'",

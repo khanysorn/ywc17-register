@@ -4,6 +4,7 @@ import Loadable from 'react-loadable'
 import { Route, Router } from 'react-router'
 import { createGlobalStyle } from 'styled-components'
 
+import 'antd/dist/antd.less'
 import './index.css'
 
 import store from './stores'
