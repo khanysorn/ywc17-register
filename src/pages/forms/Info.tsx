@@ -55,7 +55,10 @@ const General = () => {
           </Col>
           <Col xs={24} md={12}>
             <Form.Item label="วัน-เดือน-ปีเกิด">
-              <DatePicker placeholder="input placeholder" />
+              <DatePicker
+                placeholder="input placeholder"
+                style={{ width: '100%' }}
+              />
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>

@@ -43,6 +43,15 @@ const GlobalStyle = createGlobalStyle`
     background-size: cover;
     background-attachment: fixed;
   }
+
+  .ant-steps-item-process .ant-steps-item-icon {
+    background-color: #E1426F;
+    border-color: #E1426F;
+  }
+
+  .ant-calendar-picker {
+    width: 100%;
+  }
 `
 
 const App: React.FC = () => {
