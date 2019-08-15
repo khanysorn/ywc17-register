@@ -144,7 +144,11 @@ const General = () => {
           </Col>
         </Row>
         <div style={{ textAlign: 'center', marginTop: 96, marginBottom: 16 }}>
-          <img src={NextButton} style={{ cursor: 'pointer' }} />
+          <img
+            src={NextButton}
+            style={{ cursor: 'pointer' }}
+            alt="next button"
+          />
         </div>
       </Container>
     </>
