@@ -8,6 +8,7 @@ export default styled.div`
   border-radius: 10px;
   padding: 48px;
   margin-top: 32px;
+  margin-bottom: 117px;
 
   @media only screen and (max-width: 1000px) {
     margin-left: 20px;
