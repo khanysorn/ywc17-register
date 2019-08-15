@@ -19,7 +19,7 @@ import NextButton from '../../assets/images/Button.png'
 
 const { Title } = Typography
 
-export default (props: any) => {
+const General = () => {
   return (
     <>
       <Steps current={0} />
@@ -150,3 +150,5 @@ export default (props: any) => {
     </>
   )
 }
+
+export default General
