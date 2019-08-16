@@ -11,8 +11,8 @@ import {
 } from 'antd'
 import React from 'react'
 
-import Container from '../../components/Form/General/FormContainer'
-import UploadImg from '../../components/Form/General/UploadImg'
+import Container from '../../components/Form/FormContainer'
+import UploadImg from '../../components/Form/Info/UploadImg'
 import Steps from '../../components/Form/Steps'
 
 import NextButton from '../../assets/images/Button.png'
