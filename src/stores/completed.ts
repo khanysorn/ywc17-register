@@ -1,11 +1,8 @@
 import { message } from 'antd'
-import * as firebase from 'firebase/app'
 import { action, observable } from 'mobx'
 import CompletedProfile from '../interfaces/CompletedProfile'
-import { fetch, fetchWithToken } from '../utils/fetch'
-import { auth } from '../utils/firebase'
+import { fetchWithToken } from '../utils/fetch'
 import history from '../utils/history'
-import { saveToken } from '../utils/token-helper'
 
 class Completed {
   @observable loading: boolean = false
