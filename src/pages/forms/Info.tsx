@@ -9,10 +9,12 @@ import {
   Select,
   Typography
 } from 'antd'
+import { observer, useObservable } from 'mobx-react-lite'
 import React from 'react'
+import InfoStore from '../../stores/forms/info'
 
-import Container from '../../components/Form/General/FormContainer'
-import UploadImg from '../../components/Form/General/UploadImg'
+import Container from '../../components/Form/FormContainer'
+import UploadImg from '../../components/Form/Info/UploadImg'
 import Steps from '../../components/Form/Steps'
 
 import NextButton from '../../assets/images/Button.png'
@@ -20,6 +22,7 @@ import NextButton from '../../assets/images/Button.png'
 const { Title } = Typography
 
 const General = () => {
+  const infoStore = useObservable(InfoStore)
   return (
     <>
       <Steps current={0} />
@@ -158,4 +161,4 @@ const General = () => {
   )
 }
 
-export default General
+export default observer(General)
