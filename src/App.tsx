@@ -10,7 +10,7 @@ import './index.css'
 import store from './stores'
 import history from './utils/history'
 
-const Loading = () => <></>
+import Loading from './components/Loading'
 
 const Info = Loadable({
   loader: () => import('./pages/forms/Info'),
