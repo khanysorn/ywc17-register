@@ -12,6 +12,11 @@ import history from './utils/history'
 
 import Loading from './components/Loading'
 
+const Login = Loadable({
+  loader: () => import('./pages/Login'),
+  loading: Loading
+})
+
 const Info = Loadable({
   loader: () => import('./pages/forms/Info'),
   loading: Loading
@@ -59,6 +64,7 @@ const App: React.FC = () => {
     <Provider store={store}>
       <Router history={history}>
         <GlobalStyle />
+        <Route exact={true} path="/" component={Login} />
         <Route exact={true} path="/step/info" component={Info} />
         <Route exact={true} path="/step/contact" component={Contact} />
         <Route exact={true} path="/step/general" component={General} />
