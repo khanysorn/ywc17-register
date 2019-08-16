@@ -1,8 +1,8 @@
-import { message } from 'antd'
-import * as firebase from 'firebase/app'
+// import { message } from 'antd'
+// import * as firebase from 'firebase/app'
 import { action, observable } from 'mobx'
-import { fetch } from '../../utils/fetch'
-import { auth } from '../../utils/firebase'
+// import { fetch } from '../../utils/fetch'
+// import { auth } from '../../utils/firebase'
 
 class Info {
   @observable loading: boolean = false
