@@ -44,11 +44,11 @@ const Completed = Loadable({
 
 const GlobalStyle = createGlobalStyle`
   * {
-    font-family: 'Maledpan';
+    font-family: 'Maledpan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
   body {
-    font-family: 'Maledpan';
+    font-family: 'Maledpan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(69.01deg, #C73884 7.27%, #E13C6F 51.46%, #9B308E 95.22%);
     background-size: cover;
     background-attachment: fixed;
