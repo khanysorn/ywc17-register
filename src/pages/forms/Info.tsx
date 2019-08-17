@@ -21,7 +21,7 @@ import validateSchema from '../../utils/FormValidate/Info/schema'
 import NextButton from '../../assets/images/Button.png'
 import Container from '../../components/Form/FormContainer'
 import UploadImg from '../../components/Form/Info/UploadImg'
-import Steps from '../../components/Form/Steps'
+import Header from '../../components/Header'
 
 const { Title } = Typography
 
@@ -39,7 +39,7 @@ const General = () => {
       render={({ values, handleChange }) => {
         return (
           <>
-            <Steps current={0} />
+            <Header />
             <Container>
               <Title level={3} style={{ marginBottom: 36 }}>
                 ข้อมูลพื้นฐาน

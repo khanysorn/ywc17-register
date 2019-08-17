@@ -11,7 +11,7 @@ const Container = styled.div`
   box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   padding: 24px 48px;
-  margin-top: 58px;
+  margin-top: 30px;
 
   @media only screen and (max-width: 1000px) {
     margin-left: 20px;
