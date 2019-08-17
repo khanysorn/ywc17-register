@@ -1,5 +1,5 @@
 import { observer, useObservable } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 import AuthStore from '../stores/auth'
@@ -26,6 +26,10 @@ const LoginSubHeading = styled.h2`
 
 const Login = () => {
   const authStore = useObservable(AuthStore)
+
+  useEffect(() => {
+    authStore.checkAuthentication()
+  }, [authStore])
 
   const handleLogin = async () => {
     await authStore.doAuthentication()

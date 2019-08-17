@@ -4,10 +4,10 @@ import { action, observable } from 'mobx'
 import { fetch, fetchWithToken } from '../utils/fetch'
 import { auth } from '../utils/firebase'
 import history from '../utils/history'
-import { saveToken } from '../utils/token-helper'
+import { getToken, saveToken } from '../utils/token-helper'
 
 class Auth {
-  @observable loading: boolean = false
+  @observable loading: boolean = true
 
   @action
   async doAuthentication() {
@@ -35,6 +35,19 @@ class Auth {
   }
 
   @action
+  async checkAuthentication() {
+    if (getToken()) {
+      const getProfile = await fetchWithToken('users/me', {}, 'GET')
+
+      if (getProfile.status === 'success') {
+        await this.getProfile()
+        return
+      }
+    }
+    this.loading = false
+  }
+
+  @action
   async getProfile() {
     const getProfile = await fetchWithToken('users/me', {}, 'GET')
 
@@ -54,6 +67,7 @@ class Auth {
       this.loading = false
       return
     } else {
+      message.info('เรากำลังนำคุณไปยังขั้นตอนล่าสุด')
       history.push(`/step/${getProfile.payload.step}`)
     }
 
