@@ -4,24 +4,29 @@ import { action, observable } from 'mobx'
 import { fetch, fetchWithToken } from '../utils/fetch'
 import { auth } from '../utils/firebase'
 import history from '../utils/history'
-import { getToken, saveToken } from '../utils/token-helper'
+import { getToken, removeToken, saveToken } from '../utils/token-helper'
 
 class Auth {
   @observable loading: boolean = true
+  @observable facebookDisplayName: string = ''
 
   @action
   async doAuthentication() {
     this.loading = true
-    const provider = new firebase.auth.FacebookAuthProvider()
-    provider.addScope('email')
     const accessToken = await auth
-      .signInWithPopup(provider)
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() => {
+        const provider = new firebase.auth.FacebookAuthProvider()
+        provider.addScope('email')
+        return firebase.auth().signInWithPopup(provider)
+      })
       .then((result: any) => {
         message.info('กำลังเข้าสู่ระบบ')
         return result.credential.accessToken
       })
       .catch(e => {
         message.error('Something went wrong!')
+        this.loading = false
         throw e
       })
 
@@ -32,6 +37,23 @@ class Auth {
 
       this.getProfile()
     }
+  }
+
+  @action
+  getFacebookDisplayName() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.facebookDisplayName = user.displayName || ''
+      }
+    })
+  }
+
+  @action
+  async doLogout() {
+    await firebase.auth().signOut()
+    removeToken()
+    message.success('ออกจากระบบแล้ว')
+    history.push('/')
   }
 
   @action
