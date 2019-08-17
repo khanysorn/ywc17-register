@@ -7,6 +7,7 @@ import AuthStore from '../stores/auth'
 import CenterContainer from '../components/CenterContainer'
 import Loading from '../components/Loading'
 
+import { Button } from 'antd'
 import Logo from '../assets/logo.svg'
 
 const LoginLayout = styled.div`
@@ -44,7 +45,16 @@ const Login = () => {
         <LoginSubHeading>
           โปรดเข้าสู่ระบบด้วย Facebook เพื่อสมัครค่าย
         </LoginSubHeading>
-        <h1 onClick={handleLogin}>Login</h1>
+        <div>
+          <Button
+            type="primary"
+            icon="facebook"
+            size="large"
+            onClick={handleLogin}
+          >
+            Login with Facebook
+          </Button>
+        </div>
       </LoginLayout>
     </CenterContainer>
   )
