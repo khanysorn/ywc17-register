@@ -1,7 +1,7 @@
 import { Provider } from 'mobx-react'
 import React from 'react'
 import Loadable from 'react-loadable'
-import { Route, Router } from 'react-router'
+import { Route, Router, Switch } from 'react-router'
 import { createGlobalStyle } from 'styled-components'
 
 import 'antd/dist/antd.css'
@@ -11,6 +11,7 @@ import store from './stores'
 import history from './utils/history'
 
 import Loading from './components/Loading'
+import NotFound from './pages/NotFound'
 
 const Login = Loadable({
   loader: () => import('./pages/Login'),
@@ -69,12 +70,15 @@ const App: React.FC = () => {
     <Provider store={store}>
       <Router history={history}>
         <GlobalStyle />
-        <Route exact={true} path="/" component={Login} />
-        <Route exact={true} path="/step/info" component={Info} />
-        <Route exact={true} path="/step/contact" component={Contact} />
-        <Route exact={true} path="/step/general" component={General} />
-        <Route exact={true} path="/step/major" component={Major} />
-        <Route exact={true} path="/completed" component={Completed} />
+        <Switch>
+          <Route exact={true} path="/" component={Login} />
+          <Route exact={true} path="/step/info" component={Info} />
+          <Route exact={true} path="/step/contact" component={Contact} />
+          <Route exact={true} path="/step/general" component={General} />
+          <Route exact={true} path="/step/major" component={Major} />
+          <Route exact={true} path="/completed" component={Completed} />
+          <Route path="*" component={NotFound} />
+        </Switch>
       </Router>
     </Provider>
   )
