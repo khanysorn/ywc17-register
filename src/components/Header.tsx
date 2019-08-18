@@ -69,7 +69,12 @@ const Header = () => {
         <ProfileColumn md={12}>
           <div>
             <ProfileBox>
-              <Avatar size={36} icon="user" style={{ marginRight: '10px' }} />
+              <Avatar
+                size={36}
+                icon="user"
+                src={authStore.facebookProfilePicture}
+                style={{ marginRight: '10px' }}
+              />
               {authStore.facebookDisplayName}{' '}
               <LogoutButton onClick={handleLogout}>ออกจากระบบ</LogoutButton>
             </ProfileBox>
