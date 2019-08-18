@@ -9,6 +9,7 @@ import { getToken, removeToken, saveToken } from '../utils/token-helper'
 class Auth {
   @observable loading: boolean = true
   @observable facebookDisplayName: string = ''
+  @observable facebookProfilePicture: string = ''
 
   @action
   async doAuthentication() {
@@ -44,6 +45,9 @@ class Auth {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.facebookDisplayName = user.displayName || ''
+        this.facebookProfilePicture = user.photoURL || ''
+      } else {
+        this.doLogout()
       }
     })
   }
