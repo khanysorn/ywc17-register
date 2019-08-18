@@ -24,6 +24,14 @@ const LoginSubHeading = styled.h2`
   margin-bottom: 2em;
 `
 
+const LoginButton = styled(Button)`
+  &:hover {
+    color: #fff;
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+  }
+`
+
 const Login = () => {
   const authStore = useObservable(AuthStore)
 
@@ -50,14 +58,14 @@ const Login = () => {
           โปรดเข้าสู่ระบบด้วย Facebook เพื่อสมัครค่าย
         </LoginSubHeading>
         <div>
-          <Button
+          <LoginButton
             type="primary"
             icon="facebook"
             size="large"
             onClick={handleLogin}
           >
             Login with Facebook
-          </Button>
+          </LoginButton>
         </div>
       </LoginLayout>
     </CenterContainer>
