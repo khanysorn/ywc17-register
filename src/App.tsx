@@ -78,7 +78,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .ant-btn:hover, .ant-btn:active, .ant-btn:focus {
-    color: #fff;
+    color: #e1426f;
     border-color: #e1426f;
   }
 
@@ -100,6 +100,10 @@ const GlobalStyle = createGlobalStyle`
 
   .ant-radio-checked::after {
     border: 1px solid #e1426f;
+  }
+
+  .ant-btn-primary:hover {
+    color: #fff;
   }
 `
 
