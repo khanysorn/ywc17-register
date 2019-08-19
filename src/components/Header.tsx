@@ -1,4 +1,4 @@
-import { Avatar, Col, Row } from 'antd'
+import { Avatar, Col, message, Row } from 'antd'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
@@ -58,6 +58,7 @@ const Header = () => {
 
   const handleLogout = () => {
     authStore.doLogout()
+    message.success('ออกจากระบบสำเร็จ')
   }
 
   return (
