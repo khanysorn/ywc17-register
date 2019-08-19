@@ -78,7 +78,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .ant-btn:hover, .ant-btn:active, .ant-btn:focus {
-    color: #e1426f;
+    color: #fff;
     border-color: #e1426f;
   }
 

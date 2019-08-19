@@ -47,6 +47,7 @@ class Auth {
         this.facebookDisplayName = user.displayName || ''
         this.facebookProfilePicture = user.photoURL || ''
       } else {
+        message.error('กรุณาเข้าสู่ระบบก่อนสมัคร')
         this.doLogout()
       }
     })
@@ -56,7 +57,6 @@ class Auth {
   async doLogout() {
     await firebase.auth().signOut()
     removeToken()
-    message.success('ออกจากระบบแล้ว')
     history.push('/')
   }
 

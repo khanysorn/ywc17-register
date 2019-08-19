@@ -1,5 +1,6 @@
 import { Button, Icon } from 'antd'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import CenterContainer from '../components/CenterContainer'
 
@@ -31,9 +32,11 @@ const NotFound = () => {
         <Heading>
           <b>ขออภัย</b> ไม่พบหน้าที่คุณต้องการ
         </Heading>
-        <TryButton shape="round" size="large" type="primary">
-          ลองใหม่อีกครั้ง
-        </TryButton>
+        <Link to="/">
+          <TryButton shape="round" size="large" type="primary">
+            ลองใหม่อีกครั้ง
+          </TryButton>
+        </Link>
       </div>
     </CenterContainer>
   )
