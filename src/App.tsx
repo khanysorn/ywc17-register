@@ -4,7 +4,7 @@ import Loadable from 'react-loadable'
 import { Route, Router, Switch } from 'react-router'
 import { createGlobalStyle } from 'styled-components'
 
-import 'antd/dist/antd.css'
+import './antd.css'
 import './index.css'
 
 import store from './stores'
@@ -48,62 +48,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Maledpan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
-  html {
-    --antd-wave-shadow-color: #E1426F;
-  }
-
   body {
     font-family: 'Maledpan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(69.01deg, #C73884 7.27%, #E13C6F 51.46%, #9B308E 95.22%);
     background-size: cover;
     background-attachment: fixed;
-  }
-
-  .ant-steps-item-process .ant-steps-item-icon {
-    background-color: #E1426F;
-    border-color: #E1426F;
-  }
-
-  .ant-calendar-picker {
-    width: 100%;
-  }
-
-  .ant-input:focus {
-    border-color: #e1426f;
-    box-shadow: 0 0 0 2px rgba(225, 66, 111, 0.2);
-  }
-
-  .ant-input:hover {
-    border-color: #e1426f;
-  }
-
-  .ant-btn:hover, .ant-btn:active, .ant-btn:focus {
-    color: #e1426f;
-    border-color: #e1426f;
-  }
-
-  .ant-radio-checked .ant-radio-inner {
-    border-color: #e1426f;
-  }
-
-  .ant-radio:hover {
-    border-color: #e1426f;
-  }
-
-  .ant-radio-wrapper:hover .ant-radio, .ant-radio:hover .ant-radio-inner, .ant-radio-input:focus + .ant-radio-inner {
-    border-color: #e1426f;
-  }
-
-  .ant-radio-inner::after {
-    background-color: #e1426f;
-  }
-
-  .ant-radio-checked::after {
-    border: 1px solid #e1426f;
-  }
-
-  .ant-btn-primary:hover {
-    color: #fff;
   }
 `
 
