@@ -22,7 +22,6 @@ class Auth {
         return firebase.auth().signInWithPopup(provider)
       })
       .then((result: any) => {
-        message.info('กำลังเข้าสู่ระบบ')
         return result.credential.accessToken
       })
       .catch(e => {
