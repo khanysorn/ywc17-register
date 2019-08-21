@@ -69,7 +69,7 @@ const General = () => {
               </Title>
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
-                  <UploadImg />
+                  <UploadImg onChange={setFieldValue} value={values.picture} />
                 </Col>
                 <Col xs={24} md={12}>
                   <Form.Item
