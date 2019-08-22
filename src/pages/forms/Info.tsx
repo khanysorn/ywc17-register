@@ -28,7 +28,7 @@ import moment from 'moment'
 
 const { Title } = Typography
 
-const General = () => {
+const Info = () => {
   const infoStore = useObservable(InfoStore)
 
   // init
@@ -64,7 +64,7 @@ const General = () => {
           <>
             <Header />
             <Container>
-              <Title level={3} style={{ marginBottom: 36 }}>
+              <Title level={3} style={{ marginBottom: 28 }}>
                 ข้อมูลพื้นฐาน
               </Title>
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
@@ -214,7 +214,7 @@ const General = () => {
                 </Col>
               </Row>
               <Divider />
-              <Title level={3} style={{ marginBottom: 36, marginTop: 50 }}>
+              <Title level={3} style={{ marginBottom: 28, marginTop: 56 }}>
                 ที่อยู่ปัจจุบัน
               </Title>
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
@@ -290,7 +290,7 @@ const General = () => {
                 </Col>
               </Row>
               <Divider />
-              <Title level={3} style={{ marginBottom: 36, marginTop: 50 }}>
+              <Title level={3} style={{ marginBottom: 28, marginTop: 56 }}>
                 ข้อมูลการศึกษา
               </Title>
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
@@ -402,4 +402,4 @@ const General = () => {
   )
 }
 
-export default observer(General)
+export default observer(Info)

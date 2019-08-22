@@ -49,7 +49,11 @@ const LogoutButton = styled.p`
   color: #e1426f;
 `
 
-const Header = () => {
+interface MyProps {
+  current?: number
+}
+
+const Header: React.FC<MyProps> = props => {
   const authStore = useObservable(AuthStore)
 
   useEffect(() => {
@@ -83,7 +87,7 @@ const Header = () => {
         </ProfileColumn>
       </Row>
       <Row>
-        <Steps current={0} />
+        <Steps current={props.current} />
       </Row>
     </Container>
   )
