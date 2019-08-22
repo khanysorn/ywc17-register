@@ -2,26 +2,24 @@ import { get } from 'lodash'
 import moment from 'moment'
 
 export default (form: object) => ({
-  title: get(form, 'title', ''),
-  // tslint:disable-next-line: object-literal-sort-keys
+  academicYear: get(form, 'academicYear', ''),
+  address: get(form, 'address', ''),
+  birthdate: get(form, 'birthdate', moment(Date.now()).format()),
+  department: get(form, 'department', ''),
+  district: get(form, 'district', ''),
+  educationStatus: get(form, 'educationStatus', ''),
+  email: get(form, 'email', ''),
+  faculty: get(form, 'faculty', ''),
   firstName: get(form, 'firstName', ''),
   lastName: get(form, 'lastName', ''),
   nickname: get(form, 'nickname', ''),
-  // tslint:disable-next-line: object-literal-sort-keys
-  faculty: get(form, 'faculty', ''),
-  department: get(form, 'department', ''),
-  picture: get(form, 'picture', ''),
-  educationStatus: get(form, 'educationStatus', ''),
-  academicYear: get(form, 'academicYear', ''),
-  university: get(form, 'university', ''),
-  sex: get(form, 'sex', ''),
-  birthdate: get(form, 'birthdate', moment(Date.now()).format()),
-  religion: get(form, 'religion', ''),
   phone: get(form, 'phone', ''),
-  address: get(form, 'address', ''),
-  subDistrict: get(form, 'subDistrict', ''),
-  district: get(form, 'district', ''),
-  province: get(form, 'province', ''),
+  picture: get(form, 'picture', ''),
   postalCode: get(form, 'postalCode', ''),
-  email: get(form, 'email', '')
+  province: get(form, 'province', ''),
+  religion: get(form, 'religion', ''),
+  sex: get(form, 'sex', ''),
+  subDistrict: get(form, 'subDistrict', ''),
+  title: get(form, 'title', ''),
+  university: get(form, 'university', '')
 })
