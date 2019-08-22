@@ -56,6 +56,10 @@ const GlobalStyle = createGlobalStyle`
     background-size: cover;
     background-attachment: fixed;
   }
+
+  .ant-calendar-picker-input, .ant-calendar-picker {
+    width: 100%;
+  }
 `
 
 const App: React.FC = () => {

@@ -1,6 +1,11 @@
 import { Button, Icon, message, Typography, Upload } from 'antd'
+import { UploadChangeParam } from 'antd/lib/upload'
+import { observer, useObservable } from 'mobx-react-lite'
 import React from 'react'
 import styled from 'styled-components'
+
+import AuthStore from '../../../stores/auth'
+import { storage } from '../../../utils/firebase'
 
 const Background = styled.div`
   height: 180px;
@@ -36,29 +41,35 @@ function getBase64(file: any) {
   })
 }
 
-interface MyProps {
+interface UploadImgProps {
   value: string
   onChange(field: string, value: any): any
 }
 
-export default function UploadImg(props: MyProps) {
+const UploadImg = (props: UploadImgProps) => {
   const { onChange, value } = props
 
-  const onUpload = async (info: any) => {
+  const authStore = useObservable(AuthStore)
+
+  const onUpload = async (info: UploadChangeParam) => {
     if (info.file.status !== 'uploading') {
       if (info.file.size < 2000000) {
-        const preview = await getBase64(info.file.originFileObj)
-        onChange('picture', preview)
-      }
-    }
-    if (info.file.status === 'done') {
-      if (info.file.size > 2000000) {
-        message.error(`ไม่สามารถอัพไฟล์ภาพขนาดเกิน 2 MB`)
+        const type = info.file.type.split('/')[1]
+
+        await storage
+          .ref(`${authStore.userId}/profile.${type}`)
+          .put(info.file.originFileObj || new Blob())
+
+        message.success('อัพโหลดรูปสำเร็จ')
+
+        const url = await storage
+          .ref(`${authStore.userId}/profile.${type}`)
+          .getDownloadURL()
+
+        onChange('picture', url)
       } else {
-        message.success(`อัพโหลดไฟล์เรียบร้อยแล้ว`)
+        message.error(`ไม่สามารถอัพไฟล์ภาพขนาดเกิน 2 MB`)
       }
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} มีข้อผิดหลาดเกิดขึ้น.`)
     }
   }
 
@@ -78,19 +89,11 @@ export default function UploadImg(props: MyProps) {
       <div>
         <Typography.Paragraph
           type="secondary"
-          style={{ fontSize: 16, marginBottom: 6 }}
+          style={{ fontSize: 16, marginBottom: 6, fontWeight: 'bold' }}
         >
           อัพโหลดรูปประจำตัว
         </Typography.Paragraph>
-        <Upload
-          name="profile_image"
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          showUploadList={false}
-          headers={{
-            authorization: 'authorization-text'
-          }}
-          onChange={onUpload}
-        >
+        <Upload name="profile_image" showUploadList={false} onChange={onUpload}>
           <Button>
             <Icon type="upload" /> Upload
           </Button>
@@ -105,3 +108,5 @@ export default function UploadImg(props: MyProps) {
     </Wrapper>
   )
 }
+
+export default observer(UploadImg)
