@@ -12,7 +12,6 @@ import {
 import React from 'react'
 
 import Container from '../../components/Form/FormContainer'
-import UploadImg from '../../components/Form/Info/UploadImg'
 import Header from '../../components/Header'
 
 import NextButton from '../../assets/images/Button.png'
@@ -28,9 +27,6 @@ const General = () => {
           ข้อมูลพื้นฐาน
         </Title>
         <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
-          <Col xs={24} md={12}>
-            <UploadImg />
-          </Col>
           <Col xs={24} md={12}>
             <Form.Item label="ชื่อ">
               <Input placeholder="input placeholder" />

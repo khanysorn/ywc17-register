@@ -1,5 +1,4 @@
 import {
-  Button,
   Col,
   DatePicker,
   Divider,
@@ -58,7 +57,8 @@ const General = () => {
         errors,
         setFieldValue,
         handleChange,
-        handleSubmit
+        handleSubmit,
+        isSubmitting
       }) => {
         return (
           <>
@@ -387,7 +387,12 @@ const General = () => {
               <div
                 style={{ textAlign: 'center', marginTop: 96, marginBottom: 16 }}
               >
-                <NextButton onClick={() => handleSubmit()}>ต่อไป</NextButton>
+                <NextButton
+                  loading={isSubmitting}
+                  onClick={() => handleSubmit()}
+                >
+                  ต่อไป
+                </NextButton>
               </div>
             </Container>
           </>

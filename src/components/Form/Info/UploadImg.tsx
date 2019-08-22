@@ -21,6 +21,11 @@ const StyledIcon = styled(Icon)`
   position: absolute;
   top: 55px;
 `
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+`
 
 function getBase64(file: any) {
   return new Promise((resolve, reject) => {
@@ -31,13 +36,41 @@ function getBase64(file: any) {
   })
 }
 
-export default function UploadImg(props: any) {
+interface MyProps {
+  value: string
+  onChange(field: string, value: any): any
+}
+
+export default function UploadImg(props: MyProps) {
   const { onChange, value } = props
+
+  const onUpload = async (info: any) => {
+    if (info.file.status !== 'uploading') {
+      if (info.file.size < 2000000) {
+        const preview = await getBase64(info.file.originFileObj)
+        onChange('picture', preview)
+      }
+    }
+    if (info.file.status === 'done') {
+      if (info.file.size > 2000000) {
+        message.error(`ไม่สามารถอัพไฟล์ภาพขนาดเกิน 2 MB`)
+      } else {
+        message.success(`อัพโหลดไฟล์เรียบร้อยแล้ว`)
+      }
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} มีข้อผิดหลาดเกิดขึ้น.`)
+    }
+  }
+
   return (
-    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+    <Wrapper>
       <Background>
         {value ? (
-          <img src={value} style={{ width: 180, height: 180 }} />
+          <img
+            src={value}
+            alt="profile_img"
+            style={{ width: 180, height: 180 }}
+          />
         ) : (
           <StyledIcon type="user" />
         )}
@@ -56,23 +89,7 @@ export default function UploadImg(props: any) {
           headers={{
             authorization: 'authorization-text'
           }}
-          onChange={async (info: any) => {
-            if (info.file.status !== 'uploading') {
-              if (info.file.size < 2000000) {
-                const preview = await getBase64(info.file.originFileObj)
-                onChange('picture', preview)
-              }
-            }
-            if (info.file.status === 'done') {
-              if (info.file.size > 2000000) {
-                message.error(`ไม่สามารถอัพไฟล์ภาพขนาดเกิน 2 MB`)
-              } else {
-                message.success(`อัพโหลดไฟล์เรียบร้อยแล้ว`)
-              }
-            } else if (info.file.status === 'error') {
-              message.error(`${info.file.name} มีข้อผิดหลาดเกิดขึ้น.`)
-            }
-          }}
+          onChange={onUpload}
         >
           <Button>
             <Icon type="upload" /> Upload
@@ -85,6 +102,6 @@ export default function UploadImg(props: any) {
           ภาพขนาดไม่เกิน 2 MB
         </Typography.Paragraph>
       </div>
-    </div>
+    </Wrapper>
   )
 }
