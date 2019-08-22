@@ -14,10 +14,6 @@ const Container = styled.div`
   margin-top: 30px;
 
   @media only screen and (max-width: 1000px) {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  @media only screen and (max-width: 575px) {
     padding: 24px;
   }
 `
