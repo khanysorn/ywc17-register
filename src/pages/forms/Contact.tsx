@@ -4,6 +4,7 @@ import {
   Divider,
   Form,
   Input,
+  message,
   Row,
   Select,
   Typography
@@ -17,6 +18,7 @@ import styled from 'styled-components'
 import ContactStore from '../../stores/forms/contact'
 import MapStoreToInitialValues from '../../utils/FormValidate/Contact/initialValues'
 import validateSchema from '../../utils/FormValidate/Contact/schema'
+import history from '../../utils/history'
 
 import Container from '../../components/Form/FormContainer'
 import Header from '../../components/Header'
@@ -75,8 +77,12 @@ const Contact = () => {
       validateOnChange={false}
       // validationSchema={validateSchema}
       onSubmit={async (values, actions) => {
-        // await infoStore.handleSubmit(values)
-        actions.setSubmitting(false)
+        if (!confirmMajor) {
+          message.error('กรุณากดยืนยันการเลือกสาขา')
+        } else {
+          await contactStore.handleSubmit(values)
+          actions.setSubmitting(false)
+        }
       }}
       render={({
         values,
@@ -110,7 +116,12 @@ const Contact = () => {
               </Title>
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
-                  <FormItem label="โรคประจำตัว" tip="(ถ้าไม่มี ใส่ - )">
+                  <FormItem
+                    label="โรคประจำตัว"
+                    tip="(ถ้าไม่มี ใส่ - )"
+                    validateStatus={errors.disease && 'error'}
+                    help={errors.disease}
+                  >
                     <Input
                       name="disease"
                       onChange={handleChange}
@@ -122,6 +133,8 @@ const Contact = () => {
                   <FormItem
                     label="สิ่งที่แพ้ / อาหารที่แพ้"
                     tip="(ถ้าไม่มี ใส่ - )"
+                    validateStatus={errors.foodAllergy && 'error'}
+                    help={errors.foodAllergy}
                   >
                     <Input
                       name="foodAllergy"
@@ -132,7 +145,12 @@ const Contact = () => {
                   </FormItem>
                 </Col>
                 <Col xs={24} md={12}>
-                  <FormItem label="ยาที่แพ้" tip="(ถ้าไม่มี ใส่ - )">
+                  <FormItem
+                    label="ยาที่แพ้"
+                    tip="(ถ้าไม่มี ใส่ - )"
+                    validateStatus={errors.medAllergy && 'error'}
+                    help={errors.medAllergy}
+                  >
                     <Input
                       name="medAllergy"
                       onChange={handleChange}
@@ -141,7 +159,11 @@ const Contact = () => {
                   </FormItem>
                 </Col>
                 <Col xs={24} md={12}>
-                  <FormItem label="ไซส์เสื้อ">
+                  <FormItem
+                    label="ไซส์เสื้อ"
+                    validateStatus={errors.shirtSize && 'error'}
+                    help={errors.shirtSize}
+                  >
                     <Select
                       style={{ width: '100%' }}
                       onChange={(e: string) => setFieldValue('shirtSize', e)}
@@ -159,7 +181,11 @@ const Contact = () => {
                   </FormItem>
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label="กิจกรรมที่เข้าร่วมหรือผลงานที่เคยทำ เช่น ค่าย งานแข่งขัน การประกวด การแสดง ฯลฯ">
+                  <Form.Item
+                    label="กิจกรรมที่เข้าร่วมหรือผลงานที่เคยทำ เช่น ค่าย งานแข่งขัน การประกวด การแสดง ฯลฯ"
+                    validateStatus={errors.activities && 'error'}
+                    help={errors.activities}
+                  >
                     <Input.TextArea
                       placeholder="บรรยายเหตุการณ์เหล่านั้น"
                       rows={8}
@@ -170,7 +196,14 @@ const Contact = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24}>
-                  <Form.Item label="รู้จักค่าย YWC จากไหน">
+                  <Form.Item
+                    label="รู้จักค่าย YWC จากไหน"
+                    help={
+                      <span style={{ color: '#EB5757' }}>
+                        {errors.knowCamp}
+                      </span>
+                    }
+                  >
                     <Checkbox.Group
                       name="knowCamp"
                       value={values.knowCamp}
@@ -232,7 +265,11 @@ const Contact = () => {
               </Title>
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
-                  <Form.Item label="ชื่อ">
+                  <Form.Item
+                    label="ชื่อ"
+                    validateStatus={errors.emergencyFirstName && 'error'}
+                    help={errors.emergencyFirstName}
+                  >
                     <Input
                       name="emergencyFirstName"
                       onChange={handleChange}
@@ -241,7 +278,11 @@ const Contact = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item label="นามสกุล">
+                  <Form.Item
+                    label="นามสกุล"
+                    validateStatus={errors.emergencyLastName && 'error'}
+                    help={errors.emergencyLastName}
+                  >
                     <Input
                       name="emergencyLastName"
                       onChange={handleChange}
@@ -250,7 +291,11 @@ const Contact = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item label="เบอร์ติดต่อฉุกเฉิน">
+                  <Form.Item
+                    label="เบอร์ติดต่อฉุกเฉิน"
+                    validateStatus={errors.emergencyPhone && 'error'}
+                    help={errors.emergencyPhone}
+                  >
                     <Input
                       name="emergencyPhone"
                       onChange={handleChange}
@@ -260,7 +305,11 @@ const Contact = () => {
                   </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
-                  <Form.Item label="ความสัมพันธ์">
+                  <Form.Item
+                    label="ความสัมพันธ์"
+                    validateStatus={errors.emergencyPhoneRelated && 'error'}
+                    help={errors.emergencyPhoneRelated}
+                  >
                     <Input
                       name="emergencyPhoneRelated"
                       onChange={handleChange}
@@ -276,11 +325,16 @@ const Contact = () => {
               </Title>
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24}>
-                  <MajorRadio
-                    value={values.major}
-                    onChange={setFieldValue}
-                    disabled={lockMajor}
-                  />
+                  <Form.Item
+                    validateStatus={errors.major && 'error'}
+                    help={errors.major}
+                  >
+                    <MajorRadio
+                      value={values.major}
+                      onChange={setFieldValue}
+                      disabled={lockMajor}
+                    />
+                  </Form.Item>
                   <div style={{ textAlign: 'center', marginTop: 30 }}>
                     <Checkbox
                       checked={confirmMajor}
@@ -303,7 +357,9 @@ const Contact = () => {
                   md={6}
                   style={{ textAlign: 'center', marginTop: 10 }}
                 >
-                  <BackButton>{'< ย้อนกลับ'}</BackButton>
+                  <BackButton onClick={() => history.push('/step/info')}>
+                    {'< ย้อนกลับ'}
+                  </BackButton>
                 </Col>
                 <Col
                   xs={24}
@@ -311,7 +367,12 @@ const Contact = () => {
                   md={6}
                   style={{ textAlign: 'center', marginTop: 10 }}
                 >
-                  <NextButton>ต่อไป ></NextButton>
+                  <NextButton
+                    loading={isSubmitting}
+                    onClick={() => handleSubmit()}
+                  >
+                    ต่อไป >
+                  </NextButton>
                 </Col>
               </ButtonsContainer>
             </Container>

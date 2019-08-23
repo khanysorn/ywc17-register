@@ -19,8 +19,11 @@ export default Yup.object().shape({
     .max(10, 'รูปแบบเบอร์โทรไม่ถูกต้อง')
     .matches(/^\d+$/, 'รูปแบบเบอร์โทรไม่ถูกต้อง')
     .required('กรุณาใส่เบอร์โทรศัพท์'),
-  picture: Yup.string(),
-  postalCode: Yup.string().required('กรุณาใส่รหัสไปรษณีย์'),
+  picture: Yup.string().required('กรุณาอัพโหลดรูปโปรไฟล์'),
+  postalCode: Yup.string()
+    .max(5, 'รูปแบบรหัสไปรษณีย์ไม่ถูกต้อง')
+    .matches(/^\d+$/, 'รูปแบบรหัสไปรษณีย์ไม่ถูกต้อง')
+    .required('กรุณาใส่รหัสไปรษณีย์'),
   province: Yup.string().required('กรุณาใส่จังหวัด'),
   religion: Yup.string().required('กรุณาเลือกศาสนา'),
   sex: Yup.string().required('กรุณาเลือกเพศ'),

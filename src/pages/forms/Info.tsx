@@ -64,7 +64,16 @@ const Info = () => {
               </Title>
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
-                  <UploadImg onChange={setFieldValue} value={values.picture} />
+                  <Form.Item
+                    validateStatus={errors.picture && 'error'}
+                    help={errors.picture}
+                    style={{ margin: 0 }}
+                  >
+                    <UploadImg
+                      onChange={setFieldValue}
+                      value={values.picture}
+                    />
+                  </Form.Item>
                 </Col>
                 <Col xs={24} md={12}>
                   <Form.Item

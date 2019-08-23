@@ -9,12 +9,26 @@ interface MyProps {
   label: string
   tip?: string
   help?: any
-  error?: boolean
+  validateStatus?:
+    | ''
+    | 'error'
+    | 'success'
+    | 'warning'
+    | 'validating'
+    | undefined
 }
 
-const CustomFormItem: React.FC<MyProps> = ({ children, label, tip = '' }) => {
+const CustomFormItem: React.FC<MyProps> = ({
+  children,
+  label,
+  tip = '',
+  validateStatus,
+  help
+}) => {
   return (
     <Form.Item
+      validateStatus={validateStatus}
+      help={help}
       colon={false}
       label={
         <>
