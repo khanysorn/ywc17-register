@@ -7,11 +7,15 @@ import Design from '../../../assets/images/design.png'
 import Marketing from '../../../assets/images/marketing.png'
 import Programming from '../../../assets/images/programming.png'
 
+interface ImgProps {
+  disabled?: string
+}
 const Img = styled.img`
   width: 150px;
   height: 150px;
   margin-bottom: 16px;
-  cursor: pointer;
+  cursor: ${(props: ImgProps) =>
+    props.disabled === 'yes' ? 'not-allowed' : 'pointer'};
 `
 
 const MyCol = styled(Col)`
@@ -20,22 +24,30 @@ const MyCol = styled(Col)`
 `
 interface MyProps {
   value: string
+  disabled?: boolean
   onChange(field: string, value: any): any
 }
 
-const MajorRadio: React.FC<MyProps> = ({ value, onChange }) => {
+const MajorRadio: React.FC<MyProps> = ({ value, onChange, disabled }) => {
+  const onClickImg = (type: string) => {
+    if (!disabled) {
+      onChange('major', type)
+    }
+  }
   return (
     <Radio.Group
       value={value}
       onChange={e => onChange('major', e.target.value)}
       style={{ width: '100%' }}
+      disabled={disabled}
     >
       <Row gutter={16}>
         <MyCol xs={24} sm={12} md={6}>
           <Img
             src={Content}
             alt="content"
-            onClick={() => onChange('major', 'content')}
+            disabled={disabled ? 'yes' : 'no'}
+            onClick={() => onClickImg('content')}
           />
           <br />
           <Radio value="content">Web Content</Radio>
@@ -44,7 +56,8 @@ const MajorRadio: React.FC<MyProps> = ({ value, onChange }) => {
           <Img
             src={Design}
             alt="design"
-            onClick={() => onChange('major', 'design')}
+            disabled={disabled ? 'yes' : 'no'}
+            onClick={() => onClickImg('design')}
           />
           <br />
           <Radio value="design">Web Design</Radio>
@@ -53,7 +66,8 @@ const MajorRadio: React.FC<MyProps> = ({ value, onChange }) => {
           <Img
             src={Marketing}
             alt="marketing"
-            onClick={() => onChange('major', 'marketing')}
+            disabled={disabled ? 'yes' : 'no'}
+            onClick={() => onClickImg('marketing')}
           />
           <br />
           <Radio value="marketing">Web Marketing</Radio>
@@ -62,7 +76,8 @@ const MajorRadio: React.FC<MyProps> = ({ value, onChange }) => {
           <Img
             src={Programming}
             alt="programming"
-            onClick={() => onChange('major', 'programming')}
+            disabled={disabled ? 'yes' : 'no'}
+            onClick={() => onClickImg('programming')}
           />
           <br />
           <Radio value="programming">Web Programmer</Radio>

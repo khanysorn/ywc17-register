@@ -8,6 +8,8 @@ const Tip = styled.span`
 interface MyProps {
   label: string
   tip?: string
+  help?: any
+  error?: boolean
 }
 
 const CustomFormItem: React.FC<MyProps> = ({ children, label, tip = '' }) => {
