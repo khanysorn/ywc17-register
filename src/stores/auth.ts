@@ -1,6 +1,8 @@
 import { message } from 'antd'
 import * as firebase from 'firebase/app'
 import { action, observable } from 'mobx'
+import { create, persist } from 'mobx-persist'
+
 import { fetch, fetchWithToken } from '../utils/fetch'
 import { auth } from '../utils/firebase'
 import history from '../utils/history'
@@ -8,8 +10,9 @@ import { getToken, removeToken, saveToken } from '../utils/token-helper'
 
 class Auth {
   @observable loading: boolean = true
-  @observable facebookDisplayName: string = ''
-  @observable facebookProfilePicture: string = ''
+  @persist @observable facebookDisplayName: string = ''
+  @persist @observable facebookProfilePicture: string = ''
+  @persist @observable userId: string = ''
 
   @action
   async doAuthentication() {
@@ -54,9 +57,23 @@ class Auth {
 
   @action
   async doLogout() {
+    this.facebookDisplayName = ''
+    this.facebookProfilePicture = ''
+    this.userId = ''
     await firebase.auth().signOut()
     removeToken()
     history.push('/')
+  }
+
+  @action
+  async getUserId() {
+    if (getToken()) {
+      const getProfile = await fetchWithToken('users/me', {}, 'GET')
+
+      if (getProfile.status === 'success') {
+        this.userId = getProfile.payload._id
+      }
+    }
   }
 
   @action
@@ -84,6 +101,8 @@ class Auth {
       return
     }
 
+    this.userId = getProfile.payload._id
+
     message.success('เข้าสู่ระบบสำเร็จ')
 
     if (getProfile.payload.status === 'completed') {
@@ -100,4 +119,9 @@ class Auth {
   }
 }
 
-export default new Auth()
+const hydrate = create()
+
+const AuthStore = new Auth()
+
+export default AuthStore
+hydrate('auth', AuthStore)

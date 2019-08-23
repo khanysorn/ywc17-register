@@ -12,6 +12,7 @@ import {
 
 import { Formik } from 'formik'
 import { observer, useObservable } from 'mobx-react-lite'
+import moment from 'moment'
 import React, { useEffect } from 'react'
 import InfoStore from '../../stores/forms/info'
 
@@ -19,12 +20,9 @@ import MapStoreToInitialValues from '../../utils/FormValidate/Info/initialValues
 import validateSchema from '../../utils/FormValidate/Info/schema'
 
 import Container from '../../components/Form/FormContainer'
-import Header from '../../components/Header'
-// tslint:disable-next-line: ordered-imports
 import UploadImg from '../../components/Form/Info/UploadImg'
 import NextButton from '../../components/Form/NextButton'
-// tslint:disable-next-line: ordered-imports
-import moment from 'moment'
+import Header from '../../components/Header'
 
 const { Title } = Typography
 
@@ -33,11 +31,8 @@ const Info = () => {
 
   // init
   useEffect(() => {
-    const fetch = async () => {
-      await infoStore.getAnswers()
-    }
-    fetch()
-  }, [])
+    infoStore.getAnswers()
+  }, [infoStore])
 
   const storeValues = Object.assign({}, infoStore.formData)
   const initialValues = MapStoreToInitialValues(storeValues)

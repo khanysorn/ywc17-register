@@ -25,6 +25,9 @@ const LoginSubHeading = styled.h2`
 `
 
 const LoginButton = styled(Button)`
+  background-color: #1890ff;
+  border-color: #1890ff;
+
   &:hover {
     color: #fff;
     background-color: #40a9ff;
