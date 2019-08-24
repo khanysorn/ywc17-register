@@ -52,11 +52,8 @@ const Contact = () => {
 
   // init
   useEffect(() => {
-    const fetch = async () => {
-      await contactStore.getAnswers()
-    }
-    fetch()
-  }, [])
+    contactStore.getAnswers()
+  }, [contactStore])
 
   const storeValues = Object.assign({}, contactStore.formData)
   const initialValues = MapStoreToInitialValues(storeValues)
@@ -75,7 +72,7 @@ const Contact = () => {
       enableReinitialize={true}
       initialValues={initialValues}
       validateOnChange={false}
-      // validationSchema={validateSchema}
+      validationSchema={validateSchema}
       onSubmit={async (values, actions) => {
         if (!confirmMajor) {
           message.error('กรุณากดยืนยันการเลือกสาขา')

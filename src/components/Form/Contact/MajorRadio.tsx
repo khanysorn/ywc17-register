@@ -22,13 +22,17 @@ const MyCol = styled(Col)`
   margin-bottom: 24px;
   text-align: center;
 `
-interface MyProps {
+interface MajorRadioProps {
   value: string
   disabled?: boolean
   onChange(field: string, value: any): any
 }
 
-const MajorRadio: React.FC<MyProps> = ({ value, onChange, disabled }) => {
+const MajorRadio: React.FC<MajorRadioProps> = ({
+  value,
+  onChange,
+  disabled
+}) => {
   const onClickImg = (type: string) => {
     if (!disabled) {
       onChange('major', type)
@@ -80,7 +84,7 @@ const MajorRadio: React.FC<MyProps> = ({ value, onChange, disabled }) => {
             onClick={() => onClickImg('programming')}
           />
           <br />
-          <Radio value="programming">Web Programmer</Radio>
+          <Radio value="programming">Web Programming</Radio>
         </MyCol>
       </Row>
     </Radio.Group>
