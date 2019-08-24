@@ -44,13 +44,14 @@ class Auth {
 
   @action
   getFacebookDisplayName() {
-    firebase.auth().onAuthStateChanged(user => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.facebookDisplayName = user.displayName || ''
         this.facebookProfilePicture = user.photoURL || ''
       } else {
         message.error('กรุณาเข้าสู่ระบบก่อนสมัคร')
         this.doLogout()
+        unsubscribe()
       }
     })
   }

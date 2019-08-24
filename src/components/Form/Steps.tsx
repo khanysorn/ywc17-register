@@ -19,13 +19,13 @@ const Container = styled.div`
 `
 
 interface MyProps {
-  current: number
+  current?: number
 }
 
 export default function Stepper(props: MyProps) {
   return (
     <Container>
-      <Steps current={props.current}>
+      <Steps current={props.current || 0}>
         <Step title="ขั้นที่ 1" description="ข้อมูลพื้นฐาน" />
         <Step title="ขั้นที่ 2" description="ข้อมูลเพิ่มเติม" />
         <Step title="ขั้นที่ 3" description="คำถามจากส่วนกลาง" />

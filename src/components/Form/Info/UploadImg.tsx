@@ -31,7 +31,6 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
 `
-
 interface UploadImgProps {
   value: string
   onChange(field: string, value: any): any
