@@ -76,6 +76,7 @@ const Contact = () => {
       onSubmit={async (values, actions) => {
         if (!confirmMajor) {
           message.error('กรุณากดยืนยันการเลือกสาขา')
+          actions.setSubmitting(false)
         } else {
           await contactStore.handleSubmit(values)
           actions.setSubmitting(false)

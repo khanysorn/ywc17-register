@@ -41,7 +41,7 @@ const Info = () => {
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      validateOnChange={false}
+      validateOnChange={true}
       validationSchema={validateSchema}
       onSubmit={async (values, actions) => {
         await infoStore.handleSubmit(values)
@@ -212,7 +212,7 @@ const Info = () => {
                       name="religion"
                       onChange={handleChange}
                       value={values.religion}
-                      placeholder="พุทธม คริสต์, อิสลาม, ฯลฯ"
+                      placeholder="พุทธ, คริสต์, อิสลาม, ฯลฯ"
                     />
                   </Form.Item>
                 </Col>
