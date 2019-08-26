@@ -8,6 +8,11 @@ import { auth } from '../utils/firebase'
 import history from '../utils/history'
 import { getToken, removeToken, saveToken } from '../utils/token-helper'
 
+interface IProfileResponse {
+  status: string
+  payload: any
+}
+
 class Auth {
   @observable loading: boolean = true
   @persist @observable facebookDisplayName: string = ''
@@ -80,10 +85,13 @@ class Auth {
   @action
   async checkAuthentication() {
     if (getToken()) {
-      const getProfile = await fetchWithToken('users/me', {}, 'GET')
-
+      const getProfile = await fetchWithToken<IProfileResponse>(
+        'users/me',
+        {},
+        'GET'
+      )
       if (getProfile.status === 'success') {
-        await this.getProfile()
+        await this.getProfile(getProfile)
         return
       }
     }
@@ -91,8 +99,9 @@ class Auth {
   }
 
   @action
-  async getProfile() {
-    const getProfile = await fetchWithToken('users/me', {}, 'GET')
+  async getProfile(profile?: IProfileResponse) {
+    const getProfile =
+      profile || (await fetchWithToken<IProfileResponse>('users/me', {}, 'GET'))
 
     if (getProfile.status !== 'success') {
       message.error('Something went wrong!')
