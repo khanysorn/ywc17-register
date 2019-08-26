@@ -13,7 +13,7 @@ import {
 import { Formik } from 'formik'
 import { observer, useObservable } from 'mobx-react-lite'
 import moment from 'moment'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import InfoStore from '../../stores/forms/info'
 
 import MapStoreToInitialValues from '../../utils/FormValidate/Info/initialValues'
@@ -37,11 +37,13 @@ const Info = () => {
   const storeValues = Object.assign({}, infoStore.formData)
   const initialValues = MapStoreToInitialValues(storeValues)
 
+  const [disableField, setDisableField] = useState(false)
+
   return (
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      validateOnChange={false}
+      validateOnChange={true}
       validationSchema={validateSchema}
       onSubmit={async (values, actions) => {
         await infoStore.handleSubmit(values)
@@ -55,6 +57,24 @@ const Info = () => {
         handleSubmit,
         isSubmitting
       }) => {
+        const onEducationStatusChange = (value: string) => {
+          setFieldValue('educationStatus', value)
+
+          if (value === 'ทำงานแล้ว') {
+            setFieldValue('university', '-')
+            setFieldValue('faculty', '-')
+            setFieldValue('department', '-')
+            setFieldValue('academicYear', '-')
+            setDisableField(true)
+          } else {
+            setDisableField(false)
+          }
+        }
+
+        if (values.educationStatus === 'ทำงานแล้ว') {
+          setDisableField(true)
+        }
+
         return (
           <>
             <Header />
@@ -212,7 +232,7 @@ const Info = () => {
                       name="religion"
                       onChange={handleChange}
                       value={values.religion}
-                      placeholder="พุทธม คริสต์, อิสลาม, ฯลฯ"
+                      placeholder="พุทธ, คริสต์, อิสลาม, ฯลฯ"
                     />
                   </Form.Item>
                 </Col>
@@ -306,7 +326,7 @@ const Info = () => {
                   >
                     <Radio.Group
                       name="educationStatus"
-                      onChange={handleChange}
+                      onChange={e => onEducationStatusChange(e.target.value)}
                       value={values.educationStatus}
                     >
                       <Radio value="มัธยมปลาย">มัธยมปลาย</Radio>
@@ -326,6 +346,7 @@ const Info = () => {
                       onChange={(e: string) => setFieldValue('academicYear', e)}
                       value={values.academicYear}
                       style={{ width: '100%' }}
+                      disabled={disableField}
                     >
                       {[
                         '-',
@@ -358,6 +379,7 @@ const Info = () => {
                       name="university"
                       onChange={handleChange}
                       value={values.university}
+                      disabled={disableField}
                     />
                   </Form.Item>
                 </Col>
@@ -371,6 +393,7 @@ const Info = () => {
                       name="faculty"
                       onChange={handleChange}
                       value={values.faculty}
+                      disabled={disableField}
                     />
                   </Form.Item>
                 </Col>
@@ -384,6 +407,7 @@ const Info = () => {
                       name="department"
                       onChange={handleChange}
                       value={values.department}
+                      disabled={disableField}
                     />
                   </Form.Item>
                 </Col>
