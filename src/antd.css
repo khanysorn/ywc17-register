@@ -5108,6 +5108,10 @@ a.ant-btn-sm {
 .ant-avatar-image {
   background: transparent;
 }
+.ant-avatar-image > img {
+  object-fit: cover;
+  object-position: center;
+}
 .ant-avatar-string {
   position: absolute;
   left: 50%;

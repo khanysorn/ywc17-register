@@ -20,12 +20,12 @@ export const fetch = async (
 }
 
 // request data from token in localStorage
-export const fetchWithToken = async (
+export const fetchWithToken = async <T = any>(
   route: string,
   data: any = {},
   method: AxiosRequestConfig['method'] = 'POST',
   token: string | null = ''
-) => {
+): Promise<T> => {
   const authOptions: AxiosRequestConfig = {
     data: qs.stringify(data),
     headers: {
