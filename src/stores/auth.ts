@@ -42,7 +42,7 @@ class Auth {
       'auth/login',
       {
         accessToken: firebaseUser.credential.accessToken,
-        firebaseUid: firebaseUser.uid
+        firebaseUid: firebaseUser.user.uid
       },
       'POST'
     )
@@ -51,6 +51,10 @@ class Auth {
       saveToken(login.payload.token)
 
       this.getProfile()
+    } else {
+      this.loading = false
+      message.error('เกิดข้อผิดพลาด')
+      throw login.payload
     }
   }
 
@@ -84,7 +88,7 @@ class Auth {
       const getProfile = await fetchWithToken('users/me', {}, 'GET')
 
       if (getProfile.status === 'success') {
-        this.userId = getProfile.payload._id
+        this.userId = getProfile.payload.firebase_uid
       }
     }
   }
