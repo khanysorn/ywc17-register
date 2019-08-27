@@ -22,7 +22,7 @@ class Auth {
   @action
   async doAuthentication() {
     this.loading = true
-    const accessToken = await auth
+    const firebaseUser = await auth
       .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       .then(() => {
         const provider = new firebase.auth.FacebookAuthProvider()
@@ -30,7 +30,7 @@ class Auth {
         return firebase.auth().signInWithPopup(provider)
       })
       .then((result: any) => {
-        return result.credential.accessToken
+        return result
       })
       .catch(e => {
         message.error('Something went wrong!')
@@ -38,12 +38,23 @@ class Auth {
         throw e
       })
 
-    const login = await fetch('auth/login', { accessToken }, 'POST')
+    const login = await fetch(
+      'auth/login',
+      {
+        accessToken: firebaseUser.credential.accessToken,
+        firebaseUid: firebaseUser.user.uid
+      },
+      'POST'
+    )
 
     if (login.status === 'success') {
       saveToken(login.payload.token)
 
       this.getProfile()
+    } else {
+      this.loading = false
+      message.error('เกิดข้อผิดพลาด')
+      throw login.payload
     }
   }
 
@@ -77,7 +88,7 @@ class Auth {
       const getProfile = await fetchWithToken('users/me', {}, 'GET')
 
       if (getProfile.status === 'success') {
-        this.userId = getProfile.payload._id
+        this.userId = getProfile.payload.firebase_uid
       }
     }
   }
