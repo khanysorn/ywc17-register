@@ -76,7 +76,12 @@ const Info = () => {
         }
 
         return (
-          <>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              handleSubmit()
+            }}
+          >
             <Header />
             <Container>
               <Title level={3} style={{ marginBottom: 28 }}>
@@ -415,15 +420,12 @@ const Info = () => {
               <div
                 style={{ textAlign: 'center', marginTop: 96, marginBottom: 16 }}
               >
-                <NextButton
-                  loading={isSubmitting}
-                  onClick={() => handleSubmit()}
-                >
+                <NextButton loading={isSubmitting} htmlType="submit">
                   ต่อไป
                 </NextButton>
               </div>
             </Container>
-          </>
+          </form>
         )
       }}
     />
