@@ -83,7 +83,12 @@ const UploadImg = (props: UploadImgProps) => {
         >
           อัพโหลดรูปประจำตัว
         </Typography.Paragraph>
-        <Upload name="profile_image" showUploadList={false} onChange={onUpload}>
+        <Upload
+          name="profile_image"
+          showUploadList={false}
+          onChange={onUpload}
+          accept=".png,.jpg,.bmp"
+        >
           <Button>
             <Icon type="upload" /> Upload
           </Button>
