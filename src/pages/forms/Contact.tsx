@@ -106,7 +106,12 @@ const Contact = () => {
         )
         //
         return (
-          <>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              handleSubmit()
+            }}
+          >
             <Header current={1} />
             <Container>
               <Title level={3} style={{ marginBottom: 28 }}>
@@ -365,16 +370,13 @@ const Contact = () => {
                   md={6}
                   style={{ textAlign: 'center', marginTop: 10 }}
                 >
-                  <NextButton
-                    loading={isSubmitting}
-                    onClick={() => handleSubmit()}
-                  >
+                  <NextButton loading={isSubmitting} htmlType="submit">
                     ต่อไป >
                   </NextButton>
                 </Col>
               </ButtonsContainer>
             </Container>
-          </>
+          </form>
         )
       }}
     />
