@@ -9,7 +9,7 @@ import {
   Select,
   Typography
 } from 'antd'
-import { Formik } from 'formik'
+import { Formik, getIn } from 'formik'
 import { findIndex } from 'lodash'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
@@ -85,6 +85,7 @@ const Contact = () => {
       render={({
         values,
         errors,
+        touched,
         setFieldValue,
         handleChange,
         handleSubmit,
@@ -105,6 +106,11 @@ const Contact = () => {
           el.includes('อื่นๆ')
         )
         //
+        const getValidateStatus = (field: string) =>
+          getIn(touched, field) && Boolean(getIn(errors, field)) ? 'error' : ''
+        const getHelperText = (field: string) =>
+          getIn(touched, field) ? getIn(errors, field) : ''
+
         return (
           <form
             onSubmit={e => {
@@ -122,8 +128,8 @@ const Contact = () => {
                   <FormItem
                     label="โรคประจำตัว"
                     tip="(ถ้าไม่มี ใส่ - )"
-                    validateStatus={errors.disease && 'error'}
-                    help={errors.disease}
+                    help={getHelperText('disease')}
+                    validateStatus={getValidateStatus('disease')}
                   >
                     <Input
                       name="disease"
@@ -136,8 +142,8 @@ const Contact = () => {
                   <FormItem
                     label="สิ่งที่แพ้ / อาหารที่แพ้"
                     tip="(ถ้าไม่มี ใส่ - )"
-                    validateStatus={errors.foodAllergy && 'error'}
-                    help={errors.foodAllergy}
+                    help={getHelperText('foodAllergy')}
+                    validateStatus={getValidateStatus('foodAllergy')}
                   >
                     <Input
                       name="foodAllergy"
@@ -151,8 +157,8 @@ const Contact = () => {
                   <FormItem
                     label="ยาที่แพ้"
                     tip="(ถ้าไม่มี ใส่ - )"
-                    validateStatus={errors.medAllergy && 'error'}
-                    help={errors.medAllergy}
+                    help={getHelperText('medAllergy')}
+                    validateStatus={getValidateStatus('medAllergy')}
                   >
                     <Input
                       name="medAllergy"
@@ -164,8 +170,8 @@ const Contact = () => {
                 <Col xs={24} md={12}>
                   <FormItem
                     label="ไซส์เสื้อ"
-                    validateStatus={errors.shirtSize && 'error'}
-                    help={errors.shirtSize}
+                    help={getHelperText('shirtSize')}
+                    validateStatus={getValidateStatus('shirtSize')}
                   >
                     <Select
                       style={{ width: '100%' }}
@@ -186,8 +192,8 @@ const Contact = () => {
                 <Col xs={24}>
                   <Form.Item
                     label="กิจกรรมที่เข้าร่วมหรือผลงานที่เคยทำ เช่น ค่าย งานแข่งขัน การประกวด การแสดง ฯลฯ"
-                    validateStatus={errors.activities && 'error'}
-                    help={errors.activities}
+                    help={getHelperText('activities')}
+                    validateStatus={getValidateStatus('activities')}
                   >
                     <Input.TextArea
                       placeholder="บรรยายเหตุการณ์เหล่านั้น"
@@ -203,7 +209,7 @@ const Contact = () => {
                     label="รู้จักค่าย YWC จากไหน"
                     help={
                       <span style={{ color: '#EB5757' }}>
-                        {errors.knowCamp}
+                        {getHelperText('activities')}
                       </span>
                     }
                   >
@@ -270,8 +276,8 @@ const Contact = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ชื่อ"
-                    validateStatus={errors.emergencyFirstName && 'error'}
-                    help={errors.emergencyFirstName}
+                    help={getHelperText('emergencyFirstName')}
+                    validateStatus={getValidateStatus('emergencyFirstName')}
                   >
                     <Input
                       name="emergencyFirstName"
@@ -283,8 +289,8 @@ const Contact = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="นามสกุล"
-                    validateStatus={errors.emergencyLastName && 'error'}
-                    help={errors.emergencyLastName}
+                    help={getHelperText('emergencyLastName')}
+                    validateStatus={getValidateStatus('emergencyLastName')}
                   >
                     <Input
                       name="emergencyLastName"
@@ -296,8 +302,8 @@ const Contact = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="เบอร์ติดต่อฉุกเฉิน"
-                    validateStatus={errors.emergencyPhone && 'error'}
-                    help={errors.emergencyPhone}
+                    help={getHelperText('emergencyPhone')}
+                    validateStatus={getValidateStatus('emergencyPhone')}
                   >
                     <Input
                       name="emergencyPhone"
@@ -310,8 +316,8 @@ const Contact = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ความสัมพันธ์"
-                    validateStatus={errors.emergencyPhoneRelated && 'error'}
-                    help={errors.emergencyPhoneRelated}
+                    help={getHelperText('emergencyPhoneRelated')}
+                    validateStatus={getValidateStatus('emergencyPhoneRelated')}
                   >
                     <Input
                       name="emergencyPhoneRelated"
@@ -329,8 +335,8 @@ const Contact = () => {
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24}>
                   <Form.Item
-                    validateStatus={errors.major && 'error'}
-                    help={errors.major}
+                    help={getHelperText('major')}
+                    validateStatus={getValidateStatus('major')}
                   >
                     <MajorRadio
                       value={values.major}
