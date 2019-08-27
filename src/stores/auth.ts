@@ -88,7 +88,7 @@ class Auth {
       const getProfile = await fetchWithToken('users/me', {}, 'GET')
 
       if (getProfile.status === 'success') {
-        this.userId = getProfile.payload._id
+        this.userId = getProfile.payload.firebase_uid
       }
     }
   }
