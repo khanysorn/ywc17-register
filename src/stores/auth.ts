@@ -64,6 +64,7 @@ class Auth {
       if (user) {
         this.facebookDisplayName = user.displayName || ''
         this.facebookProfilePicture = user.photoURL || ''
+        this.userId = user.uid
       } else {
         message.error('กรุณาเข้าสู่ระบบก่อนสมัคร')
         this.doLogout()
