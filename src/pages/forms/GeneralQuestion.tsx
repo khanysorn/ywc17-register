@@ -37,7 +37,7 @@ const General = () => {
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      validateOnChange={true}
+      validateOnChange={false}
       validationSchema={schema}
       onSubmit={async (values, actions) => {
         await generalQuestionStore.handleSubmit({

@@ -19,6 +19,7 @@ class GeneralQuestion {
       this.loading = false
     }
   }
+  @action
   async handleSubmit(data: object) {
     try {
       this.loading = true

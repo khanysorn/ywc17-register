@@ -19,11 +19,12 @@ class MajorQuestion {
       this.loading = false
     }
   }
+  @action
   async handleSubmit(data: object) {
     try {
       this.loading = true
       await fetchWithToken('registration/major', data, 'PUT')
-      history.push('/step/major')
+      // history.push('/completed')
     } catch (error) {
       message.error('มีข้อผิิดพลาดเกิิดขึ้น กรุณาลองอีกครั้ง')
     } finally {
