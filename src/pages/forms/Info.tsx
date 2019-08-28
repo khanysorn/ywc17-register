@@ -10,7 +10,7 @@ import {
   Typography
 } from 'antd'
 
-import { Formik } from 'formik'
+import { Formik, getIn } from 'formik'
 import { observer, useObservable } from 'mobx-react-lite'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -43,7 +43,6 @@ const Info = () => {
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      validateOnChange={true}
       validationSchema={validateSchema}
       onSubmit={async (values, actions) => {
         await infoStore.handleSubmit(values)
@@ -52,6 +51,7 @@ const Info = () => {
       render={({
         values,
         errors,
+        touched,
         setFieldValue,
         handleChange,
         handleSubmit,
@@ -75,8 +75,18 @@ const Info = () => {
           setDisableField(true)
         }
 
+        const getValidateStatus = (field: string) =>
+          getIn(touched, field) && Boolean(getIn(errors, field)) ? 'error' : ''
+        const getHelperText = (field: string) =>
+          getIn(touched, field) ? getIn(errors, field) : ''
+
         return (
-          <>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              handleSubmit()
+            }}
+          >
             <Header />
             <Container>
               <Title level={3} style={{ marginBottom: 28 }}>
@@ -85,8 +95,8 @@ const Info = () => {
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
-                    validateStatus={errors.picture && 'error'}
-                    help={errors.picture}
+                    help={getHelperText('picture')}
+                    validateStatus={getValidateStatus('picture')}
                     style={{ margin: 0 }}
                   >
                     <UploadImg
@@ -98,8 +108,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="เพศ"
-                    validateStatus={errors.sex && 'error'}
-                    help={errors.sex}
+                    help={getHelperText('sex')}
+                    validateStatus={getValidateStatus('sex')}
                   >
                     <Radio.Group
                       name="sex"
@@ -115,8 +125,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="คำนำหน้าชื่อ"
-                    validateStatus={errors.title && 'error'}
-                    help={errors.title}
+                    help={getHelperText('title')}
+                    validateStatus={getValidateStatus('title')}
                   >
                     <Radio.Group
                       name="title"
@@ -132,8 +142,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ชื่อ"
-                    validateStatus={errors.firstName && 'error'}
-                    help={errors.firstName}
+                    help={getHelperText('firstName')}
+                    validateStatus={getValidateStatus('firstName')}
                   >
                     <Input
                       name="firstName"
@@ -146,8 +156,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="นามสกุล"
-                    validateStatus={errors.lastName && 'error'}
-                    help={errors.lastName}
+                    help={getHelperText('lastName')}
+                    validateStatus={getValidateStatus('lastName')}
                   >
                     <Input
                       name="lastName"
@@ -160,8 +170,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ชื่อเล่น"
-                    validateStatus={errors.nickname && 'error'}
-                    help={errors.nickname}
+                    help={getHelperText('nickname')}
+                    validateStatus={getValidateStatus('nickname')}
                   >
                     <Input
                       name="nickname"
@@ -174,8 +184,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="วัน-เดือน-ปีเกิด"
-                    validateStatus={errors.birthdate && 'error'}
-                    help={errors.birthdate}
+                    help={getHelperText('birthdate')}
+                    validateStatus={getValidateStatus('birthdate')}
                   >
                     <DatePicker
                       name="birthdate"
@@ -197,8 +207,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="เบอร์โทรศัพท์มือถือ"
-                    validateStatus={errors.phone && 'error'}
-                    help={errors.phone}
+                    help={getHelperText('phone')}
+                    validateStatus={getValidateStatus('phone')}
                   >
                     <Input
                       name="phone"
@@ -211,8 +221,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="อีเมล"
-                    validateStatus={errors.email && 'error'}
-                    help={errors.email}
+                    help={getHelperText('email')}
+                    validateStatus={getValidateStatus('email')}
                   >
                     <Input
                       name="email"
@@ -225,8 +235,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ศาสนา"
-                    validateStatus={errors.religion && 'error'}
-                    help={errors.religion}
+                    help={getHelperText('religion')}
+                    validateStatus={getValidateStatus('religion')}
                   >
                     <Input
                       name="religion"
@@ -245,8 +255,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ที่อยู่"
-                    validateStatus={errors.address && 'error'}
-                    help={errors.address}
+                    help={getHelperText('address')}
+                    validateStatus={getValidateStatus('address')}
                   >
                     <Input
                       name="address"
@@ -259,8 +269,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="แขวง/ตำบล"
-                    validateStatus={errors.subDistrict && 'error'}
-                    help={errors.subDistrict}
+                    help={getHelperText('subDistrict')}
+                    validateStatus={getValidateStatus('subDistrict')}
                   >
                     <Input
                       name="subDistrict"
@@ -273,8 +283,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="เขต/อำเภอ"
-                    validateStatus={errors.district && 'error'}
-                    help={errors.district}
+                    help={getHelperText('district')}
+                    validateStatus={getValidateStatus('district')}
                   >
                     <Input
                       name="district"
@@ -287,8 +297,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="จังหวัด"
-                    validateStatus={errors.province && 'error'}
-                    help={errors.province}
+                    help={getHelperText('province')}
+                    validateStatus={getValidateStatus('province')}
                   >
                     <Input
                       name="province"
@@ -301,8 +311,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="รหัสไปรษณีย์"
-                    validateStatus={errors.postalCode && 'error'}
-                    help={errors.postalCode}
+                    help={getHelperText('postalCode')}
+                    validateStatus={getValidateStatus('postalCode')}
                   >
                     <Input
                       name="postalCode"
@@ -321,8 +331,8 @@ const Info = () => {
                 <Col xs={24}>
                   <Form.Item
                     label="กำลังศึกษาอยู่ในระดับ"
-                    validateStatus={errors.educationStatus && 'error'}
-                    help={errors.educationStatus}
+                    help={getHelperText('educationStatus')}
+                    validateStatus={getValidateStatus('educationStatus')}
                   >
                     <Radio.Group
                       name="educationStatus"
@@ -339,8 +349,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ชั้นปี"
-                    validateStatus={errors.academicYear && 'error'}
-                    help={errors.academicYear}
+                    help={getHelperText('academicYear')}
+                    validateStatus={getValidateStatus('academicYear')}
                   >
                     <Select
                       onChange={(e: string) => setFieldValue('academicYear', e)}
@@ -372,8 +382,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="มหาวิทยาลัย"
-                    validateStatus={errors.university && 'error'}
-                    help={errors.university}
+                    help={getHelperText('university')}
+                    validateStatus={getValidateStatus('university')}
                   >
                     <Input
                       name="university"
@@ -386,8 +396,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="คณะ"
-                    validateStatus={errors.faculty && 'error'}
-                    help={errors.faculty}
+                    help={getHelperText('faculty')}
+                    validateStatus={getValidateStatus('faculty')}
                   >
                     <Input
                       name="faculty"
@@ -400,8 +410,8 @@ const Info = () => {
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="สาขาวิชา"
-                    validateStatus={errors.department && 'error'}
-                    help={errors.department}
+                    help={getHelperText('department')}
+                    validateStatus={getValidateStatus('department')}
                   >
                     <Input
                       name="department"
@@ -415,15 +425,12 @@ const Info = () => {
               <div
                 style={{ textAlign: 'center', marginTop: 96, marginBottom: 16 }}
               >
-                <NextButton
-                  loading={isSubmitting}
-                  onClick={() => handleSubmit()}
-                >
+                <NextButton loading={isSubmitting} htmlType="submit">
                   ต่อไป
                 </NextButton>
               </div>
             </Container>
-          </>
+          </form>
         )
       }}
     />
