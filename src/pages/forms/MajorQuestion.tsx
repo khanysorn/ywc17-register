@@ -1,155 +1,179 @@
-import {
-  Col,
-  DatePicker,
-  Divider,
-  Form,
-  Input,
-  Radio,
-  Row,
-  Select,
-  Typography
-} from 'antd'
-import React from 'react'
+import { Col, Form, Input, Typography } from 'antd'
 
+import { Formik } from 'formik'
+import { get } from 'lodash'
+import { observer, useObservable } from 'mobx-react-lite'
+import React, { useEffect } from 'react'
+import styled from 'styled-components'
+import * as Yup from 'yup'
+
+import BackButton from '../../components/Form/BackButton'
+import ButtonsContainer from '../../components/Form/ButtonsContainer'
 import Container from '../../components/Form/FormContainer'
+import NextButton from '../../components/Form/NextButton'
+import QuestionContainer from '../../components/Form/QuestionContainer'
+import UploadArea from '../../components/Form/UploadArea'
 import Header from '../../components/Header'
-
-import NextButton from '../../assets/images/Button.png'
+import Contact from '../../stores/forms/contact'
+import MajorQuestion from '../../stores/forms/majorQuestion'
+import history from '../../utils/history'
 
 const { Title } = Typography
+const { TextArea } = Input
+const schema = Yup.object().shape({
+  0: Yup.string().required('กรุณาตอบคำถาม'),
+  1: Yup.string().required('กรุณาตอบคำถาม'),
+  2: Yup.string().required('กรุณาตอบคำถาม'),
+  3: Yup.string().required('กรุณาอัพโหลดไฟล์')
+})
 
-const General = () => {
+const TitleContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+`
+
+const MajorText = styled.span`
+  font-size: 1.6rem;
+  color: #e1426f;
+  font-weight: 600;
+`
+
+const MajorTitle = () => {
+  const contactStore = useObservable(Contact)
+  useEffect(() => {
+    contactStore.getAnswers()
+  }, [contactStore])
+  return <MajorText>สาขา {(contactStore.formData as any).major}</MajorText>
+}
+
+const Major = () => {
+  const majorQuestionStore = useObservable(MajorQuestion)
+  // init
+  useEffect(() => {
+    majorQuestionStore.getAnswers()
+  }, [majorQuestionStore])
+  const storeValues = Object.assign({}, majorQuestionStore.formData)
+  const initialValues = get(storeValues, 'answers', [])
+
   return (
-    <>
-      <Header />
-      <Container>
-        <Title level={3} style={{ marginBottom: 36 }}>
-          ข้อมูลพื้นฐาน
-        </Title>
-        <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
-          <Col xs={24} md={12} />
-          <Col xs={24} md={12}>
-            <Form.Item label="ชื่อ">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-            <Form.Item label="นามสกุล">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="เพศ">
-              <Radio.Group defaultValue="">
-                <Radio value="male">ชาย</Radio>
-                <Radio value="female">หญิง</Radio>
-                <Radio value="others">อื่นๆ</Radio>
-              </Radio.Group>
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="ชื่อเล่น">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="วัน-เดือน-ปีเกิด">
-              <DatePicker placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="ศาสนา">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="เบอร์โทรศัพท์มือถือ">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="อีเมล">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Divider />
-        <Title level={3} style={{ marginBottom: 36, marginTop: 50 }}>
-          ที่อยู่ปัจจุบัน
-        </Title>
-        <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
-          <Col xs={24} md={12}>
-            <Form.Item label="ที่อยู่">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="แขวง/ตำบล">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="เขต/อำเภอ">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="จังหวัด">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="รหัสไปรษณีย์">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Divider />
-        <Title level={3} style={{ marginBottom: 36, marginTop: 50 }}>
-          ข้อมูลการศึกษา
-        </Title>
-        <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
-          <Col xs={24}>
-            <Form.Item label="กำลังศึกษาอยู่ในระดับ">
-              <Radio.Group defaultValue="">
-                <Radio value="1">มัธยมปลาย</Radio>
-                <Radio value="2">มหาวิทยาลัย</Radio>
-                <Radio value="3">สูงกว่าปริญญาตรี</Radio>
-                <Radio value="4">ทำงานแล้ว</Radio>
-              </Radio.Group>
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="ชั้นปี">
-              <Select defaultValue="1" style={{ width: '100%' }}>
-                <Select.Option value="1">1</Select.Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="มหาวิทยาลัย">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="คณะ">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item label="สาขาวิชา">
-              <Input placeholder="input placeholder" />
-            </Form.Item>
-          </Col>
-        </Row>
-        <div style={{ textAlign: 'center', marginTop: 96, marginBottom: 16 }}>
-          <img
-            src={NextButton}
-            style={{ cursor: 'pointer' }}
-            alt="next button"
-          />
-        </div>
-      </Container>
-    </>
+    <Formik
+      enableReinitialize={true}
+      initialValues={initialValues}
+      validateOnChange={false}
+      validationSchema={schema}
+      onSubmit={async (values, actions) => {
+        await majorQuestionStore.handleSubmit({
+          answers: values
+        })
+        actions.setSubmitting(false)
+      }}
+      render={({
+        values,
+        errors,
+        setFieldValue,
+        handleChange,
+        handleSubmit,
+        isSubmitting
+      }) => {
+        return (
+          <>
+            <Header current={3} />
+            <Container>
+              <TitleContainer>
+                <Title level={3} style={{ marginBottom: 28 }}>
+                  คำถามประจำสาขา
+                </Title>
+                <MajorTitle />
+              </TitleContainer>
+              <Form onSubmit={handleSubmit}>
+                <QuestionContainer>
+                  <Title level={4}>1. คำถามจ้า</Title>
+                  <Form.Item
+                    validateStatus={errors[0] && 'error'}
+                    help={errors[0]}
+                  >
+                    <TextArea
+                      value={values[0]}
+                      onChange={handleChange}
+                      autosize={{ maxRows: 8, minRows: 8 }}
+                      placeholder="อธิบายเหตุการณ์เหล่านั้น"
+                      name="0"
+                    />
+                  </Form.Item>
+                </QuestionContainer>
+                <QuestionContainer>
+                  <Title level={4}>2. คำถามจ้า</Title>
+                  <Form.Item
+                    validateStatus={errors[1] && 'error'}
+                    help={errors[1]}
+                  >
+                    <TextArea
+                      value={values[1]}
+                      onChange={handleChange}
+                      autosize={{ maxRows: 8, minRows: 8 }}
+                      placeholder="อธิบายเหตุการณ์เหล่านั้น"
+                      name="1"
+                    />
+                  </Form.Item>
+                </QuestionContainer>
+                <QuestionContainer>
+                  <Title level={4}>3. คำถามจ้า</Title>
+                  <Form.Item
+                    validateStatus={errors[2] && 'error'}
+                    help={errors[2]}
+                  >
+                    <TextArea
+                      value={values[2]}
+                      onChange={handleChange}
+                      autosize={{ maxRows: 8, minRows: 8 }}
+                      placeholder="อธิบายเหตุการณ์เหล่านั้น"
+                      name="2"
+                    />
+                  </Form.Item>
+                </QuestionContainer>
+                <QuestionContainer>
+                  <Title level={4}>4. คำถามจ้า</Title>
+                  <Form.Item
+                    validateStatus={errors[3] && 'error'}
+                    help={errors[3]}
+                  >
+                    <UploadArea
+                      value={values[3]}
+                      onChange={value => setFieldValue('3', value)}
+                      name="question4"
+                    />
+                  </Form.Item>
+                </QuestionContainer>
+                <ButtonsContainer type="flex" justify="center">
+                  <Col
+                    xs={24}
+                    sm={12}
+                    md={6}
+                    style={{ textAlign: 'center', marginTop: 10 }}
+                  >
+                    <BackButton onClick={() => history.push('/step/general')}>
+                      {'< ย้อนกลับ'}
+                    </BackButton>
+                  </Col>
+                  <Col
+                    xs={24}
+                    sm={12}
+                    md={6}
+                    style={{ textAlign: 'center', marginTop: 10 }}
+                  >
+                    <NextButton loading={isSubmitting} htmlType="submit">
+                      ต่อไป >
+                    </NextButton>
+                  </Col>
+                </ButtonsContainer>
+              </Form>
+            </Container>
+          </>
+        )
+      }}
+    />
   )
 }
 
-export default General
+export default observer(Major)
