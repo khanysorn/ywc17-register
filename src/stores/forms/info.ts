@@ -22,8 +22,10 @@ class Info {
   async handleSubmit(data: object) {
     try {
       this.loading = true
-      await fetchWithToken('registration/info', data, 'PUT')
-      history.push('/step/contact')
+      const result = await fetchWithToken('registration/info', data, 'PUT')
+      if (result.status === 'success') {
+        history.push('/step/contact')
+      }
     } catch (error) {
       message.error('มีข้อผิิดพลาดเกิิดขึ้น กรุณาลองอีกครั้ง')
     } finally {
