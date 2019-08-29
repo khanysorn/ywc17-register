@@ -13,7 +13,7 @@ import {
 import { Formik, getIn } from 'formik'
 import { observer, useObservable } from 'mobx-react-lite'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import InfoStore from '../../stores/forms/info'
 
 import MapStoreToInitialValues from '../../utils/FormValidate/Info/initialValues'
@@ -37,7 +37,11 @@ const Info = () => {
   const storeValues = Object.assign({}, infoStore.formData)
   const initialValues = MapStoreToInitialValues(storeValues)
 
-  const [disableField, setDisableField] = useState(false)
+  const dateCalaulate = (current: any) => {
+    return (
+      current && (current < moment('1/1/1996') || current >= moment('1/1/2002'))
+    )
+  }
 
   return (
     <Formik
@@ -65,14 +69,7 @@ const Info = () => {
             setFieldValue('faculty', '-')
             setFieldValue('department', '-')
             setFieldValue('academicYear', '-')
-            setDisableField(true)
-          } else {
-            setDisableField(false)
           }
-        }
-
-        if (values.educationStatus === 'ทำงานแล้ว') {
-          setDisableField(true)
         }
 
         const getValidateStatus = (field: string) =>
@@ -196,6 +193,7 @@ const Info = () => {
                           moment(value || undefined).format()
                         )
                       }
+                      disabledDate={dateCalaulate}
                       value={
                         // แปลงกลับ
                         values.birthdate ? moment(values.birthdate) : undefined
@@ -356,7 +354,7 @@ const Info = () => {
                       onChange={(e: string) => setFieldValue('academicYear', e)}
                       value={values.academicYear}
                       style={{ width: '100%' }}
-                      disabled={disableField}
+                      disabled={values.educationStatus === 'ทำงานแล้ว'}
                     >
                       {[
                         '-',
@@ -389,7 +387,7 @@ const Info = () => {
                       name="university"
                       onChange={handleChange}
                       value={values.university}
-                      disabled={disableField}
+                      disabled={values.educationStatus === 'ทำงานแล้ว'}
                     />
                   </Form.Item>
                 </Col>
@@ -403,7 +401,7 @@ const Info = () => {
                       name="faculty"
                       onChange={handleChange}
                       value={values.faculty}
-                      disabled={disableField}
+                      disabled={values.educationStatus === 'ทำงานแล้ว'}
                     />
                   </Form.Item>
                 </Col>
@@ -417,7 +415,7 @@ const Info = () => {
                       name="department"
                       onChange={handleChange}
                       value={values.department}
-                      disabled={disableField}
+                      disabled={values.educationStatus === 'ทำงานแล้ว'}
                     />
                   </Form.Item>
                 </Col>

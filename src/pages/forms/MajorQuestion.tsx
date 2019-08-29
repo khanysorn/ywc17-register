@@ -12,21 +12,15 @@ import ButtonsContainer from '../../components/Form/ButtonsContainer'
 import Container from '../../components/Form/FormContainer'
 import NextButton from '../../components/Form/NextButton'
 import QuestionContainer from '../../components/Form/QuestionContainer'
-// import UploadArea from '../../components/Form/UploadArea'
+import UploadArea from '../../components/Form/UploadArea'
 import Header from '../../components/Header'
 import Contact from '../../stores/forms/contact'
 import MajorQuestion from '../../stores/forms/majorQuestion'
-import { MAJOR } from '../../utils/const'
+import { MAJOR, MAJOR_QUESTION } from '../../utils/const'
 import history from '../../utils/history'
 
 const { Title } = Typography
 const { TextArea } = Input
-const schema = Yup.object().shape({
-  0: Yup.string().required('กรุณาตอบคำถาม'),
-  1: Yup.string().required('กรุณาตอบคำถาม'),
-  2: Yup.string().required('กรุณาตอบคำถาม'),
-  3: Yup.string().required('กรุณาอัพโหลดไฟล์')
-})
 
 const TitleContainer = styled.div`
   display: flex;
@@ -53,12 +47,29 @@ const MajorTitle = () => {
 
 const Major = () => {
   const majorQuestionStore = useObservable(MajorQuestion)
+  const contactStore = useObservable(Contact)
+
   // init
   useEffect(() => {
     majorQuestionStore.getAnswers()
-  }, [majorQuestionStore])
+    contactStore.getAnswers()
+  }, [majorQuestionStore, contactStore])
   const storeValues = Object.assign({}, majorQuestionStore.formData)
   const initialValues = get(storeValues, 'answers', [])
+
+  const schema =
+    MAJOR_QUESTION((contactStore.formData as any).major).length === 4
+      ? Yup.object().shape({
+          0: Yup.string().required('กรุณาตอบคำถาม'),
+          1: Yup.string().required('กรุณาตอบคำถาม'),
+          2: Yup.string().required('กรุณาตอบคำถาม'),
+          3: Yup.string().required('กรุณาตอบคำถาม')
+        })
+      : Yup.object().shape({
+          0: Yup.string().required('กรุณาตอบคำถาม'),
+          1: Yup.string().required('กรุณาตอบคำถาม'),
+          2: Yup.string().required('กรุณาตอบคำถาม')
+        })
 
   return (
     <Formik
@@ -91,64 +102,50 @@ const Major = () => {
                 <MajorTitle />
               </TitleContainer>
               <Form onSubmit={handleSubmit}>
-                <QuestionContainer>
-                  <Title level={4}>1. คำถามจ้า</Title>
-                  <Form.Item
-                    validateStatus={errors[0] && 'error'}
-                    help={errors[0]}
-                  >
-                    <TextArea
-                      value={values[0]}
-                      onChange={handleChange}
-                      autosize={{ maxRows: 8, minRows: 8 }}
-                      placeholder="อธิบายเหตุการณ์เหล่านั้น"
-                      name="0"
-                    />
-                  </Form.Item>
-                </QuestionContainer>
-                <QuestionContainer>
-                  <Title level={4}>2. คำถามจ้า</Title>
-                  <Form.Item
-                    validateStatus={errors[1] && 'error'}
-                    help={errors[1]}
-                  >
-                    <TextArea
-                      value={values[1]}
-                      onChange={handleChange}
-                      autosize={{ maxRows: 8, minRows: 8 }}
-                      placeholder="อธิบายเหตุการณ์เหล่านั้น"
-                      name="1"
-                    />
-                  </Form.Item>
-                </QuestionContainer>
-                <QuestionContainer>
-                  <Title level={4}>3. คำถามจ้า</Title>
-                  <Form.Item
-                    validateStatus={errors[2] && 'error'}
-                    help={errors[2]}
-                  >
-                    <TextArea
-                      value={values[2]}
-                      onChange={handleChange}
-                      autosize={{ maxRows: 8, minRows: 8 }}
-                      placeholder="อธิบายเหตุการณ์เหล่านั้น"
-                      name="2"
-                    />
-                  </Form.Item>
-                </QuestionContainer>
-                {/* <QuestionContainer>
-                  <Title level={4}>4. คำถามจ้า</Title>
-                  <Form.Item
-                    validateStatus={errors[3] && 'error'}
-                    help={errors[3]}
-                  >
-                    <UploadArea
-                      value={values[3]}
-                      onChange={value => setFieldValue('3', value)}
-                      name="question4"
-                    />
-                  </Form.Item>
-                </QuestionContainer> */}
+                {MAJOR_QUESTION((contactStore.formData as any).major).map(
+                  (question, i) => {
+                    if (
+                      (contactStore.formData as any).major === 'design' &&
+                      i === 3
+                    ) {
+                      return (
+                        <QuestionContainer key={4}>
+                          <Title level={4}>4. {question}</Title>
+                          <Form.Item
+                            validateStatus={errors[3] && 'error'}
+                            help={errors[3]}
+                          >
+                            <UploadArea
+                              value={values[3]}
+                              onChange={value => setFieldValue('3', value)}
+                              name="question4"
+                            />
+                          </Form.Item>
+                        </QuestionContainer>
+                      )
+                    }
+
+                    return (
+                      <QuestionContainer key={i}>
+                        <Title level={4}>
+                          {i + 1}. {question}
+                        </Title>
+                        <Form.Item
+                          validateStatus={errors[i] && 'error'}
+                          help={errors[i]}
+                        >
+                          <TextArea
+                            value={values[i]}
+                            onChange={handleChange}
+                            autosize={{ maxRows: 8, minRows: 8 }}
+                            placeholder="คำตอบ"
+                            name={`${i}`}
+                          />
+                        </Form.Item>
+                      </QuestionContainer>
+                    )
+                  }
+                )}
                 <ButtonsContainer type="flex" justify="center">
                   <Col
                     xs={24}

@@ -13,6 +13,7 @@ import NextButton from '../../components/Form/NextButton'
 import QuestionContainer from '../../components/Form/QuestionContainer'
 import Header from '../../components/Header'
 import GeneralQuestion from '../../stores/forms/generalQuestion'
+import { GENERAL_QUESTION } from '../../utils/const'
 import history from '../../utils/history'
 
 const { Title } = Typography
@@ -61,51 +62,27 @@ const General = () => {
                 คำถามส่วนกลาง
               </Title>
               <Form onSubmit={handleSubmit}>
-                <QuestionContainer>
-                  <Title level={4}>1. คำถามจ้า</Title>
-                  <Form.Item
-                    validateStatus={errors[0] && 'error'}
-                    help={errors[0]}
-                  >
-                    <TextArea
-                      value={values[0]}
-                      onChange={handleChange}
-                      autosize={{ maxRows: 8, minRows: 8 }}
-                      placeholder="อธิบายเหตุการณ์เหล่านั้น"
-                      name="0"
-                    />
-                  </Form.Item>
-                </QuestionContainer>
-                <QuestionContainer>
-                  <Title level={4}>2. คำถามจ้า</Title>
-                  <Form.Item
-                    validateStatus={errors[1] && 'error'}
-                    help={errors[1]}
-                  >
-                    <TextArea
-                      value={values[1]}
-                      onChange={handleChange}
-                      autosize={{ maxRows: 8, minRows: 8 }}
-                      placeholder="อธิบายเหตุการณ์เหล่านั้น"
-                      name="1"
-                    />
-                  </Form.Item>
-                </QuestionContainer>
-                <QuestionContainer>
-                  <Title level={4}>3. คำถามจ้า</Title>
-                  <Form.Item
-                    validateStatus={errors[2] && 'error'}
-                    help={errors[2]}
-                  >
-                    <TextArea
-                      value={values[2]}
-                      onChange={handleChange}
-                      autosize={{ maxRows: 8, minRows: 8 }}
-                      placeholder="อธิบายเหตุการณ์เหล่านั้น"
-                      name="2"
-                    />
-                  </Form.Item>
-                </QuestionContainer>
+                {GENERAL_QUESTION.map((question, i) => {
+                  return (
+                    <QuestionContainer key={i}>
+                      <Title level={4}>
+                        {i + 1}. {question}
+                      </Title>
+                      <Form.Item
+                        validateStatus={errors[i] && 'error'}
+                        help={errors[i]}
+                      >
+                        <TextArea
+                          value={values[i]}
+                          onChange={handleChange}
+                          autosize={{ maxRows: 8, minRows: 8 }}
+                          placeholder="คำตอบ"
+                          name={`${i}`}
+                        />
+                      </Form.Item>
+                    </QuestionContainer>
+                  )
+                })}
                 <ButtonsContainer type="flex" justify="center">
                   <Col
                     xs={24}

@@ -4,7 +4,7 @@ import moment from 'moment'
 export default (form: object) => ({
   academicYear: get(form, 'academicYear', ''),
   address: get(form, 'address', ''),
-  birthdate: get(form, 'birthdate', moment(Date.now()).format()),
+  birthdate: get(form, 'birthdate', moment('1/1/2000')),
   department: get(form, 'department', ''),
   district: get(form, 'district', ''),
   educationStatus: get(form, 'educationStatus', ''),

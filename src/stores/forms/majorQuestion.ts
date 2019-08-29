@@ -1,6 +1,7 @@
 import { message } from 'antd'
 import { action, observable } from 'mobx'
 import { fetchWithToken } from '../../utils/fetch'
+import history from '../../utils/history'
 
 class MajorQuestion {
   @observable loading: boolean = false
@@ -23,7 +24,7 @@ class MajorQuestion {
     try {
       this.loading = true
       await fetchWithToken('registration/major', data, 'PUT')
-      // history.push('/completed')
+      history.push('/step/summary')
     } catch (error) {
       message.error('มีข้อผิิดพลาดเกิิดขึ้น กรุณาลองอีกครั้ง')
     } finally {

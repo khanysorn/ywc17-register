@@ -28,18 +28,21 @@ const useFileList = (name: string, onChange: (value: any) => any) => {
         })
         .then(items => {
           setFileList(items.map(item => ({ ...item, uid: item.name })))
-          storage
-            .ref(`${authStore.userId}/${name}/${items[0].name}`)
-            .getDownloadURL()
-            .then(url => {
-              onChange(url)
-            })
+          if (items[0]) {
+            storage
+              .ref(`${authStore.userId}/${name}/${items[0].name}`)
+              .getDownloadURL()
+              .then(url => {
+                onChange(url)
+              })
+          }
         })
         .finally(() => {
           setLoading(false)
         })
     }
-  }, [authStore.userId, name, onChange])
+    // eslint-disable-next-line
+  }, [authStore.userId, name])
   return { loading, fileList, setFileList }
 }
 
@@ -114,7 +117,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onChange, value, name }) => {
         showUploadList={false}
       >
         <Button>
-          <Icon type="upload" /> Upload
+          <Icon type="upload" /> อัพโหลด
         </Button>
       </Upload>
       {fileList.map((e: any) => (
