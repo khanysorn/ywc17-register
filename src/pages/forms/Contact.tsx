@@ -13,7 +13,6 @@ import { Formik, getIn } from 'formik'
 import { findIndex } from 'lodash'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 
 import ContactStore from '../../stores/forms/contact'
 import MapStoreToInitialValues from '../../utils/FormValidate/Contact/initialValues'
@@ -24,16 +23,10 @@ import Container from '../../components/Form/FormContainer'
 import Header from '../../components/Header'
 
 import BackButton from '../../components/Form/BackButton'
+import ButtonsContainer from '../../components/Form/ButtonsContainer'
 import FormItem from '../../components/Form/Contact/CustomFormItem'
 import MajorRadio from '../../components/Form/Contact/MajorRadio'
 import NextButton from '../../components/Form/NextButton'
-
-const ButtonsContainer = styled(Row)`
-  width: 100%;
-  margin: auto;
-  margin-top: 50px;
-  margin-bottom: 44px;
-`
 
 const { Title } = Typography
 
