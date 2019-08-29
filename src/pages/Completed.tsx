@@ -2,9 +2,11 @@ import { Avatar } from 'antd'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import CenterContainer from '../components/CenterContainer'
 
+import CenterContainer from '../components/CenterContainer'
+import NextButton from '../components/Form/NextButton'
 import Loading from '../components/Loading'
+import UserStore from '../stores/auth'
 import CompletedStore from '../stores/completed'
 
 const CompletedLayout = styled.div`
@@ -18,6 +20,7 @@ const CompletedHeading = styled.h2`
 
 const Completed = () => {
   const completedStore = useObservable(CompletedStore)
+  const userStore = useObservable(UserStore)
 
   useEffect(() => {
     completedStore.getProfile()
@@ -38,6 +41,7 @@ const Completed = () => {
           </CompletedHeading>
           <h2>คุณได้ทำการลงทะเบียนเสร็จเรียบร้อยแล้ว</h2>
           <h2>โปรดรอฟังประกาศผลในวันที่ xx พฤศจิกายน 2562</h2>
+          <NextButton onClick={userStore.doLogout}>ออกจากระบบ</NextButton>
         </CompletedLayout>
       </div>
     </CenterContainer>
