@@ -23,7 +23,7 @@ interface ISummaryProfile {
     title: string
     university: string
     activities: string
-    disease:string
+    disease: string
     emergencyFirstName: string
     emergencyLastName: string
     emergencyPhone: string
