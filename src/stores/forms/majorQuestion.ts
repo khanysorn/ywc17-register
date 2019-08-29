@@ -23,8 +23,10 @@ class MajorQuestion {
   async handleSubmit(data: object) {
     try {
       this.loading = true
-      await fetchWithToken('registration/major', data, 'PUT')
-      history.push('/step/summary')
+      const result = await fetchWithToken('registration/major', data, 'PUT')
+      if (result.status === 'success') {
+        history.push('/step/summary')
+      }
     } catch (error) {
       message.error('มีข้อผิิดพลาดเกิิดขึ้น กรุณาลองอีกครั้ง')
     } finally {
