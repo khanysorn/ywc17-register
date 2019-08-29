@@ -1,7 +1,6 @@
 import { message } from 'antd'
 import { action, observable } from 'mobx'
 import { fetchWithToken } from '../../utils/fetch'
-import history from '../../utils/history'
 
 class MajorQuestion {
   @observable loading: boolean = false

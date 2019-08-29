@@ -13,7 +13,6 @@ import { Formik, getIn } from 'formik'
 import { findIndex } from 'lodash'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 
 import ContactStore from '../../stores/forms/contact'
 import MapStoreToInitialValues from '../../utils/FormValidate/Contact/initialValues'
