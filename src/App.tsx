@@ -38,6 +38,11 @@ const Major = Loadable({
   loading: Loading
 })
 
+const Summary = Loadable({
+  loader: () => import('./pages/Summary'),
+  loading: Loading
+})
+
 const Completed = Loadable({
   loader: () => import('./pages/Completed'),
   loading: Loading
@@ -73,6 +78,7 @@ const App: React.FC = () => {
           <Route exact={true} path="/step/contact" component={Contact} />
           <Route exact={true} path="/step/general" component={General} />
           <Route exact={true} path="/step/major" component={Major} />
+          <Route exact={true} path="/step/summary" component={Summary} />
           <Route exact={true} path="/completed" component={Completed} />
           <Route path="*" component={NotFound} />
         </Switch>
