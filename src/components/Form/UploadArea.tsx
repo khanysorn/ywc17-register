@@ -1,5 +1,5 @@
 import { Button, Icon, message } from 'antd'
-import Upload, { UploadChangeParam } from 'antd/lib/upload'
+import Upload from 'antd/lib/upload'
 import { UploadFile } from 'antd/lib/upload/interface'
 import { useObservable } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
@@ -39,7 +39,7 @@ const useFileList = (name: string, onChange: (value: any) => any) => {
           setLoading(false)
         })
     }
-  }, [authStore.userId, name])
+  }, [authStore.userId, name, onChange])
   return { loading, fileList, setFileList }
 }
 
