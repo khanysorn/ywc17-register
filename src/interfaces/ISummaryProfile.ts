@@ -33,8 +33,8 @@ interface ISummaryProfile {
     medAllergy: string
     shirtSize: string
   }
-  generalQuestions: [string] | []
-  majorQuestions: [string] | []
+  generalQuestions: [string]
+  majorQuestions: [string]
 }
 
 export default ISummaryProfile

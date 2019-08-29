@@ -12,10 +12,11 @@ import ButtonsContainer from '../../components/Form/ButtonsContainer'
 import Container from '../../components/Form/FormContainer'
 import NextButton from '../../components/Form/NextButton'
 import QuestionContainer from '../../components/Form/QuestionContainer'
-import UploadArea from '../../components/Form/UploadArea'
+// import UploadArea from '../../components/Form/UploadArea'
 import Header from '../../components/Header'
 import Contact from '../../stores/forms/contact'
 import MajorQuestion from '../../stores/forms/majorQuestion'
+import { MAJOR } from '../../utils/const'
 import history from '../../utils/history'
 
 const { Title } = Typography
@@ -44,7 +45,10 @@ const MajorTitle = () => {
   useEffect(() => {
     contactStore.getAnswers()
   }, [contactStore])
-  return <MajorText>สาขา {(contactStore.formData as any).major}</MajorText>
+
+  return (
+    <MajorText>สาขา {MAJOR((contactStore.formData as any).major)}</MajorText>
+  )
 }
 
 const Major = () => {
@@ -132,7 +136,7 @@ const Major = () => {
                     />
                   </Form.Item>
                 </QuestionContainer>
-                <QuestionContainer>
+                {/* <QuestionContainer>
                   <Title level={4}>4. คำถามจ้า</Title>
                   <Form.Item
                     validateStatus={errors[3] && 'error'}
@@ -144,7 +148,7 @@ const Major = () => {
                       name="question4"
                     />
                   </Form.Item>
-                </QuestionContainer>
+                </QuestionContainer> */}
                 <ButtonsContainer type="flex" justify="center">
                   <Col
                     xs={24}
