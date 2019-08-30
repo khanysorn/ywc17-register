@@ -1,7 +1,7 @@
 import { Button, Icon, message, Typography, Upload } from 'antd'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { observer, useObservable } from 'mobx-react-lite'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import AuthStore from '../../../stores/auth'
@@ -40,9 +40,11 @@ const UploadImg = (props: UploadImgProps) => {
   const { onChange, value } = props
 
   const authStore = useObservable(AuthStore)
+  const [loading, setLoading] = useState(false)
 
   const onUpload = async (info: UploadChangeParam) => {
     if (info.file.status !== 'uploading') {
+      setLoading(false)
       if (info.file.size < 2000000) {
         const type = info.file.type.split('/')[1]
 
@@ -60,6 +62,9 @@ const UploadImg = (props: UploadImgProps) => {
       } else {
         message.error(`ไม่สามารถอัพไฟล์ภาพขนาดเกิน 2 MB`)
       }
+    }
+    if (info.file.status === 'uploading') {
+      setLoading(true)
     }
   }
 
@@ -89,8 +94,8 @@ const UploadImg = (props: UploadImgProps) => {
           onChange={onUpload}
           accept=".png,.jpg,.bmp"
         >
-          <Button>
-            <Icon type="upload" /> Upload
+          <Button loading={loading} icon="upload">
+            Upload
           </Button>
         </Upload>
         <Typography.Paragraph

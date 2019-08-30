@@ -115,7 +115,7 @@ const Info = () => {
                     >
                       <Radio value="ชาย">ชาย</Radio>
                       <Radio value="หญิง">หญิง</Radio>
-                      <Radio value="อื่นๆ">อื่นๆ</Radio>
+                      <Radio value="ไม่ระบุ">ไม่ระบุ</Radio>
                     </Radio.Group>
                   </Form.Item>
                 </Col>

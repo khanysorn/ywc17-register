@@ -71,8 +71,11 @@ const CloseIcon = styled(Icon)`
 const UploadArea: React.FC<UploadAreaProps> = ({ onChange, value, name }) => {
   const authStore = useObservable(AuthStore)
   const { loading, fileList, setFileList } = useFileList(name, onChange)
+  const [uploading, setUploading] = useState(false)
+
   const customUpload = async ({ onError, onSuccess, file }: any) => {
     try {
+      setUploading(true)
       const oldFileList = [...fileList]
       const uploaded = await storage
         .ref(`${authStore.userId}/${name}/${file.name}`)
@@ -92,6 +95,8 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onChange, value, name }) => {
       message.success('อัพโหลดไฟล์เรียบร้อยแล้ว')
     } catch (e) {
       onError(e)
+    } finally {
+      setUploading(false)
     }
   }
   const onRemove = async (file: UploadFile) => {
@@ -116,8 +121,9 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onChange, value, name }) => {
         defaultFileList={fileList}
         showUploadList={false}
       >
-        <Button>
-          <Icon type="upload" /> อัพโหลด
+        <Button icon="upload" loading={uploading}>
+          {' '}
+          อัพโหลด
         </Button>
       </Upload>
       {fileList.map((e: any) => (
