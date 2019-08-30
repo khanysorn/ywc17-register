@@ -1,4 +1,4 @@
-import { Button, Icon, message, Typography, Upload } from 'antd'
+import { Avatar, Button, Icon, message, Typography, Upload } from 'antd'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useState } from 'react'
@@ -72,11 +72,7 @@ const UploadImg = (props: UploadImgProps) => {
     <Wrapper>
       <Background>
         {value ? (
-          <img
-            src={value}
-            alt="profile_img"
-            style={{ width: 180, height: 180 }}
-          />
+          <Avatar src={value} alt="profile_img" shape="square" size={180} />
         ) : (
           <StyledIcon type="user" />
         )}
