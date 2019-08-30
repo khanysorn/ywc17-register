@@ -6,8 +6,9 @@ import AuthStore from '../stores/auth'
 
 import CenterContainer from '../components/CenterContainer'
 import Loading from '../components/Loading'
+import firebase from '../utils/firebase'
 
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 import Logo from '../assets/logo.svg'
 
 const LoginLayout = styled.div`
@@ -40,13 +41,23 @@ const Login = () => {
 
   useEffect(() => {
     authStore.checkAuthentication()
+    firebase
+      .auth()
+      .getRedirectResult()
+      .then(result => {
+        if (result.user) {
+          message.info('กำลังเข้าสู่ระบบ')
+          authStore.doSignIn(result)
+        }
+        authStore.signingIn = false
+      })
   }, [authStore])
 
   const handleLogin = async () => {
     await authStore.doAuthentication()
   }
 
-  if (authStore.loading) {
+  if (authStore.loading || authStore.signingIn) {
     return <Loading />
   }
 

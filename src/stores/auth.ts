@@ -14,7 +14,8 @@ interface IProfileResponse {
 }
 
 class Auth {
-  @observable loading: boolean = true
+  @persist @observable loading: boolean = true
+  @persist @observable signingIn: boolean = false
   @persist @observable facebookDisplayName: string = ''
   @persist @observable facebookProfilePicture: string = ''
   @persist @observable userId: string = ''
@@ -22,22 +23,23 @@ class Auth {
   @action
   async doAuthentication() {
     this.loading = true
-    const firebaseUser = await auth
+    this.signingIn = true
+    await auth
       .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       .then(() => {
         const provider = new firebase.auth.FacebookAuthProvider()
         provider.addScope('email')
-        return firebase.auth().signInWithPopup(provider)
-      })
-      .then((result: any) => {
-        return result
+        return firebase.auth().signInWithRedirect(provider)
       })
       .catch(e => {
         message.error('Something went wrong!')
         this.loading = false
         throw e
       })
+  }
 
+  @action
+  async doSignIn(firebaseUser: any) {
     const login = await fetch(
       'auth/login',
       {
