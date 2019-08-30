@@ -26,6 +26,10 @@ const Completed = () => {
     completedStore.getProfile()
   }, [completedStore])
 
+  const handleLogout = () => {
+    userStore.doLogout()
+  }
+
   if (completedStore.loading) {
     return <Loading />
   }
@@ -41,7 +45,7 @@ const Completed = () => {
           </CompletedHeading>
           <h2>คุณได้ทำการลงทะเบียนเสร็จเรียบร้อยแล้ว</h2>
           <h2>โปรดรอฟังประกาศผลในวันที่ xx พฤศจิกายน 2562</h2>
-          <NextButton onClick={userStore.doLogout}>ออกจากระบบ</NextButton>
+          <NextButton onClick={handleLogout}>ออกจากระบบ</NextButton>
         </CompletedLayout>
       </div>
     </CenterContainer>
