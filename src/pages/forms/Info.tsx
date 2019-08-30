@@ -147,6 +147,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.firstName}
                       placeholder="คณิศร"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -161,6 +162,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.lastName}
                       placeholder="ชัยวิชาชาญ"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -175,6 +177,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.nickname}
                       placeholder="บอส"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -199,6 +202,7 @@ const Info = () => {
                         values.birthdate ? moment(values.birthdate) : undefined
                       }
                       format="DD/MM/YYYY"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -213,6 +217,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.phone}
                       placeholder="081-234-5678"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -227,6 +232,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.email}
                       placeholder="example@ywc17.in.th"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -241,6 +247,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.religion}
                       placeholder="พุทธ, คริสต์, อิสลาม, ฯลฯ"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -261,6 +268,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.address}
                       placeholder="บ้านเลขที่, หมู่, ซอย, ถนน, ฯลฯ"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -275,6 +283,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.subDistrict}
                       placeholder="ตลองตันเหนือ"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -289,6 +298,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.district}
                       placeholder="วัฒนา"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -303,6 +313,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.province}
                       placeholder="กรุงเทพมหานคร"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -317,6 +328,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.postalCode}
                       placeholder="10400"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -336,6 +348,7 @@ const Info = () => {
                       name="educationStatus"
                       onChange={e => onEducationStatusChange(e.target.value)}
                       value={values.educationStatus}
+                      size="large"
                     >
                       <Radio value="มัธยมปลาย">มัธยมปลาย</Radio>
                       <Radio value="ปริญญาตรี">ปริญญาตรี</Radio>
@@ -355,6 +368,7 @@ const Info = () => {
                       value={values.academicYear}
                       style={{ width: '100%' }}
                       disabled={values.educationStatus === 'ทำงานแล้ว'}
+                      size="large"
                     >
                       {[
                         '-',
@@ -391,9 +405,12 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.university}
                       disabled={values.educationStatus === 'ทำงานแล้ว'}
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="คณะ"
@@ -405,6 +422,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.faculty}
                       disabled={values.educationStatus === 'ทำงานแล้ว'}
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -419,6 +437,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.department}
                       disabled={values.educationStatus === 'ทำงานแล้ว'}
+                      size="large"
                     />
                   </Form.Item>
                 </Col>

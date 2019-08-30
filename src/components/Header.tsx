@@ -29,6 +29,10 @@ const ProfileColumn = styled(Col)`
     text-align: right;
     width: 100%;
   }
+
+  @media (max-width: 576px) {
+    height: 50px;
+  }
 `
 
 const ProfileBox = styled.div`
@@ -39,6 +43,28 @@ const ProfileBox = styled.div`
   padding: 8px 15px 8px 8px;
   display: inline-block;
   line-height: 36px;
+
+  @media (max-width: 576px) {
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 30px;
+  }
+`
+
+const LogoColumn = styled(Col)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 78px;
+  padding-left: 20px;
+
+  & > div {
+    width: 100%;
+  }
+
+  @media (max-width: 576px) {
+    height: 50px;
+  }
 `
 
 const LogoutButton = styled.p`
@@ -47,6 +73,22 @@ const LogoutButton = styled.p`
   padding-left: 10px;
   cursor: pointer;
   color: #e1426f;
+
+  @media (max-width: 576px) {
+    padding-left: 0px;
+  }
+`
+
+const DiaplayName = styled.div`
+  @media (max-width: 576px) {
+    display: none;
+  }
+  display: inline;
+`
+
+const Image = styled.img`
+  width: 100%;
+  max-width: 220px;
 `
 
 interface MyProps {
@@ -68,10 +110,12 @@ const Header: React.FC<MyProps> = props => {
   return (
     <Container>
       <Row>
-        <Col md={12}>
-          <img src={Logo} alt="YWC Logo" />
-        </Col>
-        <ProfileColumn md={12}>
+        <LogoColumn xs={12} md={12}>
+          <div>
+            <Image src={Logo} alt="YWC Logo" />
+          </div>
+        </LogoColumn>
+        <ProfileColumn xs={12} md={12}>
           <div>
             <ProfileBox>
               <Avatar
@@ -80,14 +124,16 @@ const Header: React.FC<MyProps> = props => {
                 src={authStore.facebookProfilePicture}
                 style={{ marginRight: '10px' }}
               />
-              {authStore.facebookDisplayName}{' '}
+              <DiaplayName>{authStore.facebookDisplayName} </DiaplayName>
               <LogoutButton onClick={handleLogout}>ออกจากระบบ</LogoutButton>
             </ProfileBox>
           </div>
         </ProfileColumn>
       </Row>
       <Row>
-        <Steps current={props.current} />
+        <Col xs={0} md={24}>
+          <Steps current={props.current} />
+        </Col>
       </Row>
     </Container>
   )

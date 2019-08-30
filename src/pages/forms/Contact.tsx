@@ -128,6 +128,7 @@ const Contact = () => {
                       name="disease"
                       onChange={handleChange}
                       value={values.disease}
+                      size="large"
                     />
                   </FormItem>
                 </Col>
@@ -143,6 +144,7 @@ const Contact = () => {
                       onChange={handleChange}
                       value={values.foodAllergy}
                       placeholder="กุ้ง ถั่ว กระเทียม ฯลฯ"
+                      size="large"
                     />
                   </FormItem>
                 </Col>
@@ -157,6 +159,7 @@ const Contact = () => {
                       name="medAllergy"
                       onChange={handleChange}
                       value={values.medAllergy}
+                      size="large"
                     />
                   </FormItem>
                 </Col>
@@ -170,6 +173,7 @@ const Contact = () => {
                       style={{ width: '100%' }}
                       onChange={(e: string) => setFieldValue('shirtSize', e)}
                       value={values.shirtSize}
+                      size="large"
                     >
                       {ShirtSizes.map((value, key) => (
                         <Select.Option
@@ -276,6 +280,7 @@ const Contact = () => {
                       name="emergencyFirstName"
                       onChange={handleChange}
                       value={values.emergencyFirstName}
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -289,6 +294,7 @@ const Contact = () => {
                       name="emergencyLastName"
                       onChange={handleChange}
                       value={values.emergencyLastName}
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -303,6 +309,7 @@ const Contact = () => {
                       onChange={handleChange}
                       value={values.emergencyPhone}
                       placeholder="081-234-5678"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>
@@ -317,6 +324,7 @@ const Contact = () => {
                       onChange={handleChange}
                       value={values.emergencyPhoneRelated}
                       placeholder="พ่อ, แม่, ลุง, ป้า, ฯลฯ"
+                      size="large"
                     />
                   </Form.Item>
                 </Col>

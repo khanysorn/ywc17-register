@@ -90,7 +90,7 @@ const UploadImg = (props: UploadImgProps) => {
           onChange={onUpload}
           accept=".png,.jpg,.bmp"
         >
-          <Button loading={loading} icon="upload">
+          <Button loading={loading} icon="upload" size="large">
             Upload
           </Button>
         </Upload>

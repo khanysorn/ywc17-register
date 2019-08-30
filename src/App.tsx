@@ -65,6 +65,10 @@ const GlobalStyle = createGlobalStyle`
   .ant-calendar-picker-input, .ant-calendar-picker {
     width: 100%;
   }
+
+  .ant-form-item-label {
+    font-size: 18px;
+  }
 `
 
 const App: React.FC = () => {
