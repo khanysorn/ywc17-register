@@ -1,4 +1,5 @@
 import {
+  AutoComplete,
   Col,
   DatePicker,
   Divider,
@@ -13,16 +14,18 @@ import {
 import { Formik, getIn } from 'formik'
 import { observer, useObservable } from 'mobx-react-lite'
 import moment from 'moment'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import InfoStore from '../../stores/forms/info'
 
 import MapStoreToInitialValues from '../../utils/FormValidate/Info/initialValues'
 import validateSchema from '../../utils/FormValidate/Info/schema'
 
+import { SelectValue } from 'antd/lib/select'
 import Container from '../../components/Form/FormContainer'
 import UploadImg from '../../components/Form/Info/UploadImg'
 import NextButton from '../../components/Form/NextButton'
 import Header from '../../components/Header'
+import { UNIVERSITY } from '../../utils/autoComplete'
 
 const { Title } = Typography
 
@@ -33,6 +36,16 @@ const Info = () => {
   useEffect(() => {
     infoStore.getAnswers()
   }, [infoStore])
+
+  const [universities, setUniversites] = useState(UNIVERSITY)
+  const [academicYear, setAcademicYear] = useState([
+    'ปี 1',
+    'ปี 2',
+    'ปี 3',
+    'ปี 4',
+    'ปี 5',
+    'ปี 6'
+  ])
 
   const storeValues = Object.assign({}, infoStore.formData)
   const initialValues = MapStoreToInitialValues(storeValues)
@@ -64,11 +77,28 @@ const Info = () => {
         const onEducationStatusChange = (value: string) => {
           setFieldValue('educationStatus', value)
 
-          if (value === 'ทำงานแล้ว') {
-            setFieldValue('university', '-')
-            setFieldValue('faculty', '-')
-            setFieldValue('department', '-')
-            setFieldValue('academicYear', '-')
+          switch (value) {
+            case 'มัธยมปลาย':
+              setAcademicYear([
+                'ม. 4',
+                'ม. 5',
+                'ม. 6',
+                'ปวส. ปี 1',
+                'ปวส. ปี 2'
+              ])
+              break
+            case 'ปริญญาตรี':
+              setAcademicYear(['ปี 1', 'ปี 2', 'ปี 3', 'ปี 4', 'ปี 5', 'ปี 6'])
+              break
+            case 'สูงกว่าปริญญาตรี':
+              setAcademicYear(['ปี 1', 'ปี 2', 'ปี 3', 'ปี 4', 'ปี 5', 'ปี 6'])
+              break
+            case 'ทำงานแล้ว':
+              setFieldValue('university', '-')
+              setFieldValue('faculty', '-')
+              setFieldValue('department', '-')
+              setFieldValue('academicYear', '-')
+              break
           }
         }
 
@@ -217,6 +247,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.phone}
                       placeholder="081-234-5678"
+                      maxLength={10}
                       size="large"
                     />
                   </Form.Item>
@@ -328,6 +359,7 @@ const Info = () => {
                       onChange={handleChange}
                       value={values.postalCode}
                       placeholder="10400"
+                      maxLength={5}
                       size="large"
                     />
                   </Form.Item>
@@ -370,20 +402,7 @@ const Info = () => {
                       disabled={values.educationStatus === 'ทำงานแล้ว'}
                       size="large"
                     >
-                      {[
-                        '-',
-                        'ปี 1',
-                        'ปี 2',
-                        'ปี 3',
-                        'ปี 4',
-                        'ปี 5',
-                        'ปี 6',
-                        'ม. 4',
-                        'ม. 5',
-                        'ม. 6',
-                        'ปวส. ปี 1',
-                        'ปวส. ปี 2'
-                      ].map((value, key) => (
+                      {academicYear.map((value, key) => (
                         <Select.Option
                           key={key}
                           value={value !== '-' ? value : ''}
@@ -400,12 +419,23 @@ const Info = () => {
                     help={getHelperText('university')}
                     validateStatus={getValidateStatus('university')}
                   >
-                    <Input
-                      name="university"
-                      onChange={handleChange}
-                      value={values.university}
-                      disabled={values.educationStatus === 'ทำงานแล้ว'}
+                    <AutoComplete
                       size="large"
+                      placeholder="มหาวิทยาลัย"
+                      value={values.university}
+                      onChange={(value: SelectValue) => {
+                        setFieldValue('university', value)
+                      }}
+                      dataSource={universities}
+                      onSelect={(value: SelectValue, option: any) => {
+                        setFieldValue('university', value)
+                      }}
+                      onSearch={(value: string) => {
+                        setUniversites(
+                          UNIVERSITY.filter(u => u.includes(value))
+                        )
+                      }}
+                      disabled={values.educationStatus === 'ทำงานแล้ว'}
                     />
                   </Form.Item>
                 </Col>

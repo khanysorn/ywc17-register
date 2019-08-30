@@ -131,11 +131,9 @@ class Auth {
 
     if (getProfile.payload.status === 'completed') {
       history.push(`/completed`)
-      message.warning('คุณได้ทำการส่งใบสมัครแล้ว')
       this.loading = false
       return
     } else {
-      message.info('เรากำลังนำคุณไปยังขั้นตอนล่าสุด')
       history.push(`/step/${getProfile.payload.step}`)
     }
 
