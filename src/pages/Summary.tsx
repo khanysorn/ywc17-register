@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import SummaryStore from '../stores/forms/summary'
 import history from '../utils/history'
 
+import TextArea from 'antd/lib/input/TextArea'
 import BackButton from '../components/Form/BackButton'
 import Container from '../components/Form/FormContainer'
 import NextButton from '../components/Form/NextButton'
@@ -25,11 +26,26 @@ const FieldName = styled.h3`
   font-family: 'Sarabun';
   font-size: 18px;
   color: rgba(0, 0, 0, 0.45);
+  line-height: 1.8;
 `
 
 const FieldContent = styled.h3`
   font-family: 'Sarabun';
   font-size: 20px;
+`
+
+const AnswerBox = styled(TextArea)`
+  margin: 5px auto 25px auto;
+  font-family: 'Sarabun';
+  font-size: 20px;
+  resize: none;
+
+  &:disabled {
+    color: #000;
+    border: 0;
+    background-color: transparent;
+    line-height: 1.9;
+  }
 `
 
 const { Title } = Typography
@@ -218,7 +234,9 @@ const Info = () => {
                 <FieldName>
                   {i + 1}. {GENERAL_QUESTION[i]}
                 </FieldName>
-                <FieldContent>{answer}</FieldContent>
+                <AnswerBox disabled={true} autosize={true}>
+                  {answer}
+                </AnswerBox>
               </Col>
             )
           })}
@@ -260,7 +278,9 @@ const Info = () => {
                 <FieldName>
                   {i + 1}. {MAJOR_QUESTION(profile.profile.major)[i]}
                 </FieldName>
-                <FieldContent>{answer}</FieldContent>
+                <AnswerBox disabled={true} autosize={true}>
+                  {answer}
+                </AnswerBox>
               </Col>
             )
           })}
