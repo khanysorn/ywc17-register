@@ -32,6 +32,7 @@ const MajorText = styled.span`
   font-size: 1.6rem;
   color: #e1426f;
   font-weight: 600;
+  margin-bottom: 28px;
 `
 
 const MajorTitle = () => {
