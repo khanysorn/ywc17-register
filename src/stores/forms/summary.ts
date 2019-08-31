@@ -15,6 +15,9 @@ class Summary {
       const getSummary = await fetchWithToken('registration/summary', {}, 'GET')
       if (getSummary.status === 'success') {
         this.profile = getSummary.payload
+        this.loading = false
+      } else if (getSummary.status === 'completed') {
+        history.push('/completed')
       }
     } catch (error) {
       message.error('มีข้อผิิดพลาดเกิิดขึ้น กรุณาลองอีกครั้ง')

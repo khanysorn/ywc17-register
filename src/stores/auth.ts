@@ -117,6 +117,12 @@ class Auth {
     const getProfile =
       profile || (await fetchWithToken<IProfileResponse>('users/me', {}, 'GET'))
 
+    if (getProfile.status === 'completed') {
+      history.push('/completed')
+      this.loading = false
+      return
+    }
+
     if (getProfile.status !== 'success') {
       message.error('Something went wrong!')
 

@@ -11,8 +11,13 @@ class MajorQuestion {
   async getAnswers() {
     try {
       this.loading = true
-      const res = await fetchWithToken('registration/major', {}, 'GET')
-      this.formData = res.payload
+      const result = await fetchWithToken('registration/major', {}, 'GET')
+
+      if (result.status === 'success') {
+        this.formData = result.payload
+      } else if (result.status === 'completed') {
+        history.push('/completed')
+      }
     } catch (error) {
       message.error('มีข้อผิิดพลาดเกิิดขึ้น กรุณาลองอีกครั้ง')
     } finally {
