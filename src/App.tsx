@@ -65,9 +65,17 @@ const GlobalStyle = createGlobalStyle`
   .ant-calendar-picker-input, .ant-calendar-picker {
     width: 100%;
   }
+  h4.ant-typography {
+    font-family: 'Sarabun';
+  }
 
   .ant-form-item-label {
     font-size: 18px;
+    font-family: 'Sarabun';
+  }
+
+  .ant-form-item-control {
+    font-family: 'Sarabun';
   }
 `
 

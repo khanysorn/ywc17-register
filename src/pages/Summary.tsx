@@ -1,4 +1,4 @@
-import { Avatar, Col, Divider, Row, Typography } from 'antd'
+import { Avatar, Button, Col, Divider, Row, Typography } from 'antd'
 import { observer, useObservable } from 'mobx-react-lite'
 import moment from 'moment'
 import React, { useEffect } from 'react'
@@ -240,6 +240,21 @@ const Info = () => {
         </Title>
         <Row gutter={{ xs: 8, sm: 16, md: 24 }} style={{ marginTop: 40 }}>
           {profile.majorQuestions.map((answer: string, i) => {
+            if (profile.profile.major === 'design' && i === 3) {
+              return (
+                <Col xs={24} md={24} key={i}>
+                  <FieldName>
+                    {i + 1}. {MAJOR_QUESTION(profile.profile.major)[i]}
+                  </FieldName>
+                  <FieldContent>
+                    <Button icon="download" href={answer}>
+                      ดาวน์โหลด
+                    </Button>
+                  </FieldContent>
+                </Col>
+              )
+            }
+
             return (
               <Col xs={24} md={24} key={i}>
                 <FieldName>
