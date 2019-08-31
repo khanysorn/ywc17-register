@@ -67,11 +67,18 @@ const GlobalStyle = createGlobalStyle`
   }
   h4.ant-typography {
     font-family: 'Sarabun';
+    line-height: 1.9;
   }
 
   .ant-form-item-label {
     font-size: 20px;
     font-family: 'Sarabun';
+  }
+
+  .ant-form-item-children > textarea {
+    font-family: 'Sarabun';
+    line-height: 1.8;
+    font-size: 16px;
   }
 
   .ant-form-item-control {
