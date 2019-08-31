@@ -44,6 +44,7 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@types/google.analytics": "^0.0.40",
     "@types/qs": "^6.5.3",
     "@types/react-loadable": "^5.5.1",
     "@types/react-router-dom": "^4.3.4",

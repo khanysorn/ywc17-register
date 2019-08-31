@@ -28,20 +28,33 @@ interface MajorRadioProps {
   onChange(field: string, value: any): any
 }
 
+const track = (major: string) => {
+  if (ga) {
+    ga('send', 'event', 'MajorButton', 'click', major)
+  }
+}
+
 const MajorRadio: React.FC<MajorRadioProps> = ({
   value,
   onChange,
   disabled
 }) => {
+  const onFieldChange = (field = 'major', type: string) => {
+    track(type)
+    onChange(field, type)
+  }
   const onClickImg = (type: string) => {
     if (!disabled) {
-      onChange('major', type)
+      onFieldChange('major', type)
     }
   }
+
   return (
     <Radio.Group
       value={value}
-      onChange={e => onChange('major', e.target.value)}
+      onChange={e => {
+        onFieldChange('major', e.target.value)
+      }}
       style={{ width: '100%' }}
       disabled={disabled}
     >
