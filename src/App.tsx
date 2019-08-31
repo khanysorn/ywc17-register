@@ -70,7 +70,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .ant-form-item-label {
-    font-size: 18px;
+    font-size: 20px;
     font-family: 'Sarabun';
   }
 

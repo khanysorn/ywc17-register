@@ -25,7 +25,7 @@ import Container from '../../components/Form/FormContainer'
 import UploadImg from '../../components/Form/Info/UploadImg'
 import NextButton from '../../components/Form/NextButton'
 import Header from '../../components/Header'
-import { UNIVERSITY } from '../../utils/autoComplete'
+import { PROVINCE, UNIVERSITY } from '../../utils/autoComplete'
 
 const { Title } = Typography
 
@@ -38,6 +38,7 @@ const Info = () => {
   }, [infoStore])
 
   const [universities, setUniversites] = useState(UNIVERSITY)
+  const [provinces, setProvinces] = useState(PROVINCE)
   const [academicYear, setAcademicYear] = useState([
     'ปี 1',
     'ปี 2',
@@ -339,12 +340,20 @@ const Info = () => {
                     help={getHelperText('province')}
                     validateStatus={getValidateStatus('province')}
                   >
-                    <Input
-                      name="province"
-                      onChange={handleChange}
-                      value={values.province}
-                      placeholder="กรุงเทพมหานคร"
+                    <AutoComplete
                       size="large"
+                      placeholder="จังหวัด"
+                      value={values.province}
+                      onChange={(value: SelectValue) => {
+                        setFieldValue('province', value)
+                      }}
+                      dataSource={provinces}
+                      onSelect={(value: SelectValue, option: any) => {
+                        setFieldValue('province', value)
+                      }}
+                      onSearch={(value: string) => {
+                        setProvinces(PROVINCE.filter(u => u.includes(value)))
+                      }}
                     />
                   </Form.Item>
                 </Col>
@@ -415,28 +424,41 @@ const Info = () => {
                 </Col>
                 <Col xs={24} md={12}>
                   <Form.Item
-                    label="มหาวิทยาลัย"
+                    label={
+                      values.educationStatus === 'มัธยมปลาย'
+                        ? 'สถานศึกษา'
+                        : 'มหาวิทยาลัย'
+                    }
                     help={getHelperText('university')}
                     validateStatus={getValidateStatus('university')}
                   >
-                    <AutoComplete
-                      size="large"
-                      placeholder="มหาวิทยาลัย"
-                      value={values.university}
-                      onChange={(value: SelectValue) => {
-                        setFieldValue('university', value)
-                      }}
-                      dataSource={universities}
-                      onSelect={(value: SelectValue, option: any) => {
-                        setFieldValue('university', value)
-                      }}
-                      onSearch={(value: string) => {
-                        setUniversites(
-                          UNIVERSITY.filter(u => u.includes(value))
-                        )
-                      }}
-                      disabled={values.educationStatus === 'ทำงานแล้ว'}
-                    />
+                    {values.educationStatus === 'มัธยมปลาย' ? (
+                      <Input
+                        name="university"
+                        onChange={handleChange}
+                        value={values.university}
+                        size="large"
+                      />
+                    ) : (
+                      <AutoComplete
+                        size="large"
+                        placeholder="มหาวิทยาลัย"
+                        value={values.university}
+                        onChange={(value: SelectValue) => {
+                          setFieldValue('university', value)
+                        }}
+                        dataSource={universities}
+                        onSelect={(value: SelectValue, option: any) => {
+                          setFieldValue('university', value)
+                        }}
+                        onSearch={(value: string) => {
+                          setUniversites(
+                            UNIVERSITY.filter(u => u.includes(value))
+                          )
+                        }}
+                        disabled={values.educationStatus === 'ทำงานแล้ว'}
+                      />
+                    )}
                   </Form.Item>
                 </Col>
               </Row>
