@@ -45,6 +45,7 @@ const AnswerBox = styled(TextArea)`
     border: 0;
     background-color: transparent;
     line-height: 1.9;
+    cursor: default;
   }
 `
 
