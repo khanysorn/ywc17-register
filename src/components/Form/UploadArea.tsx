@@ -120,6 +120,7 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onChange, value, name }) => {
         customRequest={customUpload}
         defaultFileList={fileList}
         showUploadList={false}
+        accept=".pdf"
       >
         <Button icon="upload" loading={uploading}>
           {' '}

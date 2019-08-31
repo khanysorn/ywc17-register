@@ -49,7 +49,6 @@ const General = () => {
       render={({
         values,
         errors,
-        setFieldValue,
         handleChange,
         handleSubmit,
         isSubmitting

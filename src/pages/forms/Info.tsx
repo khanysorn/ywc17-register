@@ -5,6 +5,7 @@ import {
   Divider,
   Form,
   Input,
+  notification,
   Radio,
   Row,
   Select,
@@ -73,7 +74,8 @@ const Info = () => {
         setFieldValue,
         handleChange,
         handleSubmit,
-        isSubmitting
+        isSubmitting,
+        validateForm
       }) => {
         const onEducationStatusChange = (value: string) => {
           setFieldValue('educationStatus', value)
@@ -87,6 +89,7 @@ const Info = () => {
                 'ปวส. ปี 1',
                 'ปวส. ปี 2'
               ])
+              setFieldValue('department', '-')
               break
             case 'ปริญญาตรี':
               setAcademicYear(['ปี 1', 'ปี 2', 'ปี 3', 'ปี 4', 'ปี 5', 'ปี 6'])
@@ -112,7 +115,13 @@ const Info = () => {
           <form
             onSubmit={e => {
               e.preventDefault()
-              handleSubmit()
+              validateForm().then(vErrors => {
+                if (Object.keys(vErrors).length > 0) {
+                  notification.error({ message: 'คุณยังกรอกข้อมูลไม่ครบ' })
+                } else {
+                  handleSubmit()
+                }
+              })
             }}
           >
             <Header />
@@ -177,7 +186,7 @@ const Info = () => {
                       name="firstName"
                       onChange={handleChange}
                       value={values.firstName}
-                      placeholder="คณิศร"
+                      placeholder="ชื่อจริง"
                       size="large"
                     />
                   </Form.Item>
@@ -192,7 +201,7 @@ const Info = () => {
                       name="lastName"
                       onChange={handleChange}
                       value={values.lastName}
-                      placeholder="ชัยวิชาชาญ"
+                      placeholder="นามสกุล"
                       size="large"
                     />
                   </Form.Item>
@@ -207,7 +216,7 @@ const Info = () => {
                       name="nickname"
                       onChange={handleChange}
                       value={values.nickname}
-                      placeholder="บอส"
+                      placeholder="ชื่อเล่น"
                       size="large"
                     />
                   </Form.Item>
@@ -239,7 +248,7 @@ const Info = () => {
                 </Col>
                 <Col xs={24} md={12}>
                   <Form.Item
-                    label="เบอร์โทรศัพท์มือถือ"
+                    label="เบอร์โทรศัพท์มือถือ (ไม่ต้องเติม - )"
                     help={getHelperText('phone')}
                     validateStatus={getValidateStatus('phone')}
                   >
@@ -247,9 +256,10 @@ const Info = () => {
                       name="phone"
                       onChange={handleChange}
                       value={values.phone}
-                      placeholder="081-234-5678"
+                      placeholder="0812345678"
                       maxLength={10}
                       size="large"
+                      type="tel"
                     />
                   </Form.Item>
                 </Col>
@@ -465,7 +475,11 @@ const Info = () => {
               <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
-                    label="คณะ"
+                    label={
+                      values.educationStatus === 'มัธยมปลาย'
+                        ? 'แผนการเรียน'
+                        : 'คณะ'
+                    }
                     help={getHelperText('faculty')}
                     validateStatus={getValidateStatus('faculty')}
                   >
@@ -473,8 +487,8 @@ const Info = () => {
                       name="faculty"
                       onChange={handleChange}
                       value={values.faculty}
-                      disabled={values.educationStatus === 'ทำงานแล้ว'}
                       size="large"
+                      disabled={values.educationStatus === 'ทำงานแล้ว'}
                     />
                   </Form.Item>
                 </Col>
@@ -488,7 +502,10 @@ const Info = () => {
                       name="department"
                       onChange={handleChange}
                       value={values.department}
-                      disabled={values.educationStatus === 'ทำงานแล้ว'}
+                      disabled={
+                        values.educationStatus === 'ทำงานแล้ว' ||
+                        values.educationStatus === 'มัธยมปลาย'
+                      }
                       size="large"
                     />
                   </Form.Item>

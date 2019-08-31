@@ -5,6 +5,7 @@ import {
   Form,
   Input,
   message,
+  notification,
   Row,
   Select,
   Typography
@@ -85,7 +86,8 @@ const Contact = () => {
         setFieldValue,
         handleChange,
         handleSubmit,
-        isSubmitting
+        isSubmitting,
+        validateForm
       }) => {
         // knowCamp field 'อื่นๆ' logic
         const onChangeKnowCampEtc = (value: string) => {
@@ -111,7 +113,13 @@ const Contact = () => {
           <form
             onSubmit={e => {
               e.preventDefault()
-              handleSubmit()
+              validateForm().then(vErrors => {
+                if (Object.keys(vErrors).length > 0) {
+                  notification.error({ message: 'คุณยังกรอกข้อมูลไม่ครบ' })
+                } else {
+                  handleSubmit()
+                }
+              })
             }}
           >
             <Header current={1} />

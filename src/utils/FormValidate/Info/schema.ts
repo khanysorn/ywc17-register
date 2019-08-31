@@ -17,7 +17,6 @@ export default Yup.object().shape({
   phone: Yup.string()
     .min(9, 'รูปแบบเบอร์โทรไม่ถูกต้อง')
     .max(10, 'รูปแบบเบอร์โทรไม่ถูกต้อง')
-    .matches(/^\d+$/, 'รูปแบบเบอร์โทรไม่ถูกต้อง')
     .required('กรุณาใส่เบอร์โทรศัพท์'),
   picture: Yup.string().required('กรุณาอัพโหลดรูปโปรไฟล์'),
   postalCode: Yup.string()
