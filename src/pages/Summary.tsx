@@ -41,7 +41,7 @@ const AnswerBox = styled(TextArea)`
   resize: none;
 
   &:disabled {
-    color: #000;
+    color: rgba(0, 0, 0, 0.85);
     border: 0;
     background-color: transparent;
     line-height: 1.9;
