@@ -194,11 +194,20 @@ const Info = () => {
               กิจกรรมที่เข้าร่วมหรือผลงานที่เคยทำ เช่น ค่าย งานแข่งขัน การประกวด
               การแสดง ฯลฯ
             </FieldName>
-            <FieldContent>{profile.profile.activities}</FieldContent>
+            <AnswerBox disabled={true} autosize={true}>
+              {profile.profile.activities}
+            </AnswerBox>
           </Col>
           <Col xs={24} md={8}>
             <FieldName>รู้จักค่าย YWC จากไหน</FieldName>
-            <FieldContent>{profile.profile.knowCamp}</FieldContent>
+            <FieldContent>
+              {profile.profile.knowCamp.map(item => (
+                <>
+                  {item}
+                  <br />
+                </>
+              ))}
+            </FieldContent>
           </Col>
         </Row>
         <Divider />
