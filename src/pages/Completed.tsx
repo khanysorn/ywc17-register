@@ -48,7 +48,7 @@ const Completed = () => {
             {completedStore.profile.lastName}
           </CompletedHeading>
           <h2>คุณได้ทำการลงทะเบียนเสร็จเรียบร้อยแล้ว</h2>
-          <h2>โปรดรอฟังประกาศผลในวันที่ xx พฤศจิกายน 2562</h2>
+          <h2>โปรดรอฟังประกาศผลในวันที่ 23 ตุลาคม 2562</h2>
           <NextButton onClick={handleLogout}>ออกจากระบบ</NextButton>
         </CompletedLayout>
       </div>
