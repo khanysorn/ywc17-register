@@ -1,6 +1,6 @@
 interface ISummaryProfile {
   profile: {
-    knowCamp: [string] | []
+    knowCamp: [string]
     _id: string
     email: string
     academicYear: string
