@@ -72,6 +72,9 @@ const Contact = () => {
           actions.setSubmitting(false)
         } else {
           await contactStore.handleSubmit(values)
+          if (fbq) {
+            fbq('trackCustom', 'SelectMajor', { major: values.major } as any)
+          }
           actions.setSubmitting(false)
         }
       }}

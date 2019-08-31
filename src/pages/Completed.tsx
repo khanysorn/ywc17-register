@@ -25,7 +25,11 @@ const Completed = () => {
   useEffect(() => {
     completedStore.getProfile()
   }, [completedStore])
-
+  useEffect(() => {
+    if (fbq) {
+      fbq('track', 'CompleteRegistration')
+    }
+  }, [])
   const handleLogout = () => {
     userStore.doLogout()
   }
