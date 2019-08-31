@@ -31,7 +31,15 @@ import NextButton from '../../components/Form/NextButton'
 
 const { Title } = Typography
 
-const ShirtSizes = ['-', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL']
+const ShirtSizes = [
+  { label: '-', value: '-' },
+  { label: 'S (33 นิ้ว)', value: 'S' },
+  { label: 'M (36 นิ้ว)', value: 'M' },
+  { label: 'L (40 นิ้ว)', value: 'L' },
+  { label: 'XL (44 นิ้ว)', value: 'XL' },
+  { label: '2XL (48 นิ้ว)', value: '2XL' },
+  { label: '3XL (52 นิ้ว)', value: '3XL' }
+]
 const Socials = [
   'Facebook',
   'Twitter',
@@ -189,9 +197,9 @@ const Contact = () => {
                       {ShirtSizes.map((value, key) => (
                         <Select.Option
                           key={key}
-                          value={value !== '-' ? value : ''}
+                          value={value.value !== '-' ? value.value : ''}
                         >
-                          {value}
+                          {value.label}
                         </Select.Option>
                       ))}
                     </Select>
