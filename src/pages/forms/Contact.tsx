@@ -4,7 +4,6 @@ import {
   Divider,
   Form,
   Input,
-  message,
   notification,
   Row,
   Select,
@@ -77,7 +76,7 @@ const Contact = () => {
       validationSchema={validateSchema}
       onSubmit={async (values, actions) => {
         if (!confirmMajor) {
-          message.error('กรุณากดยืนยันการเลือกสาขา')
+          notification.error({ message: 'กรุณากดยืนยันการเลือกสาขา' })
           actions.setSubmitting(false)
         } else {
           await contactStore.handleSubmit(values)
