@@ -374,10 +374,17 @@ const Contact = () => {
                       checked={confirmMajor}
                       disabled={lockMajor}
                       onChange={e => setConfirmMajor(e.target.checked)}
+                      style={{ fontWeight: 'bold', fontSize: '18px' }}
                     >
                       ยืนยันการเลือกสาขา
                     </Checkbox>
-                    <p style={{ color: '#F5222D', marginTop: 24 }}>
+                    <p
+                      style={{
+                        color: '#F5222D',
+                        fontSize: '16px',
+                        marginTop: 24
+                      }}
+                    >
                       **หากยืนยันการเลือกสาขาแล้ว
                       จะไม่สามารถเปลี่ยนสาขาได้ภายหลัง
                     </p>
