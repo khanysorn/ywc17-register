@@ -32,6 +32,7 @@ const FieldName = styled.h3`
 const FieldContent = styled.h3`
   font-family: 'Sarabun';
   font-size: 20px;
+  margin-bottom: 40px;
 `
 
 const AnswerBox = styled(TextArea)`

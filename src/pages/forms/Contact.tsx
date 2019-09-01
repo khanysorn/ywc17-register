@@ -167,6 +167,8 @@ const Contact = () => {
                     />
                   </FormItem>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <FormItem
                     label="ยาที่แพ้"
@@ -317,6 +319,8 @@ const Contact = () => {
                     />
                   </Form.Item>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="เบอร์ติดต่อฉุกเฉิน"

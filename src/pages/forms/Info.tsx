@@ -209,6 +209,8 @@ const Info = () => {
                     />
                   </Form.Item>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ชื่อเล่น"
@@ -249,6 +251,8 @@ const Info = () => {
                     />
                   </Form.Item>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="เบอร์โทรศัพท์มือถือ (ไม่ต้องเติม - )"
@@ -281,6 +285,8 @@ const Info = () => {
                     />
                   </Form.Item>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ศาสนา"
@@ -332,6 +338,8 @@ const Info = () => {
                     />
                   </Form.Item>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="เขต/อำเภอ"
@@ -370,6 +378,8 @@ const Info = () => {
                     />
                   </Form.Item>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="รหัสไปรษณีย์"

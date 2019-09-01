@@ -70,6 +70,10 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.9;
   }
 
+  .ant-form-item {
+    margin-bottom: 32px;
+  }
+
   .ant-form-item-label {
     font-size: 20px;
     font-family: 'Sarabun';
