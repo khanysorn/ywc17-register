@@ -73,7 +73,7 @@ const Contact = () => {
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      validateOnChange={false}
+      validateOnChange={true}
       validationSchema={validateSchema}
       onSubmit={async (values, actions) => {
         if (!confirmMajor) {
@@ -327,7 +327,8 @@ const Contact = () => {
                       name="emergencyPhone"
                       onChange={handleChange}
                       value={values.emergencyPhone}
-                      placeholder="081-234-5678"
+                      placeholder="0812345678"
+                      maxLength={10}
                       size="large"
                     />
                   </Form.Item>

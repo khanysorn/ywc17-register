@@ -58,19 +58,34 @@ const Major = () => {
   const storeValues = Object.assign({}, majorQuestionStore.formData)
   const initialValues = get(storeValues, 'answers', [])
 
-  const schema =
-    MAJOR_QUESTION((contactStore.formData as any).major).length === 4
-      ? Yup.object().shape({
+  const schema = () => {
+    switch ((contactStore.formData as any).major) {
+      case 'programming':
+        return Yup.object().shape({
           0: Yup.string().required('กรุณาตอบคำถาม'),
           1: Yup.string().required('กรุณาตอบคำถาม'),
           2: Yup.string().required('กรุณาตอบคำถาม'),
           3: Yup.string().required('กรุณาตอบคำถาม')
         })
-      : Yup.object().shape({
+      case 'content':
+        return Yup.object().shape({
+          0: Yup.string().required('กรุณาตอบคำถาม'),
+          1: Yup.string().required('กรุณาตอบคำถาม')
+        })
+      case 'design':
+        return Yup.object().shape({
           0: Yup.string().required('กรุณาตอบคำถาม'),
           1: Yup.string().required('กรุณาตอบคำถาม'),
-          2: Yup.string().required('กรุณาตอบคำถาม')
+          2: Yup.string().required('กรุณาตอบคำถาม'),
+          3: Yup.string().required('กรุณาอัพโหลดไฟล์')
         })
+      case 'marketing':
+        return Yup.object().shape({
+          0: Yup.string().required('กรุณาตอบคำถาม'),
+          1: Yup.string().required('กรุณาตอบคำถาม')
+        })
+    }
+  }
 
   return (
     <Formik
