@@ -14,6 +14,9 @@ class Summary {
       this.loading = true
       const getSummary = await fetchWithToken('registration/summary', {}, 'GET')
       if (getSummary.status === 'success') {
+        if (getSummary.payload.profile.step !== 'summary') {
+          return history.push(`/step/${getSummary.payload.profile.step}`)
+        }
         this.profile = getSummary.payload
         this.loading = false
       } else if (getSummary.status === 'completed') {

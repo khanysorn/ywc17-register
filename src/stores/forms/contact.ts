@@ -2,6 +2,7 @@ import { message } from 'antd'
 import { action, observable } from 'mobx'
 import { fetchWithToken } from '../../utils/fetch'
 import history from '../../utils/history'
+import stepChecker from '../../utils/stepChecker'
 
 class Contact {
   @observable loading: boolean = false
@@ -13,6 +14,9 @@ class Contact {
       this.loading = true
       const result = await fetchWithToken('registration/contact', {}, 'GET')
       if (result.status === 'success') {
+        if (stepChecker(result.payload.step, 'contact')) {
+          return history.push(`/step/${result.payload.step}`)
+        }
         this.formData = result.payload
       } else if (result.status === 'completed') {
         history.push('/completed')
