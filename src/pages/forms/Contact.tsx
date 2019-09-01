@@ -73,7 +73,7 @@ const Contact = () => {
     <Formik
       enableReinitialize={true}
       initialValues={initialValues}
-      validateOnChange={true}
+      validateOnChange={false}
       validationSchema={validateSchema}
       onSubmit={async (values, actions) => {
         if (!confirmMajor) {
@@ -124,6 +124,7 @@ const Contact = () => {
               validateForm().then(vErrors => {
                 if (Object.keys(vErrors).length > 0) {
                   notification.error({ message: 'คุณยังกรอกข้อมูลไม่ครบ' })
+                  handleSubmit()
                 } else {
                   handleSubmit()
                 }

@@ -1,7 +1,7 @@
 import { Avatar, Button, Col, Divider, Row, Typography } from 'antd'
 import { observer, useObservable } from 'mobx-react-lite'
 import moment from 'moment'
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import styled from 'styled-components'
 
 import SummaryStore from '../stores/forms/summary'
@@ -195,18 +195,20 @@ const Info = () => {
               กิจกรรมที่เข้าร่วมหรือผลงานที่เคยทำ เช่น ค่าย งานแข่งขัน การประกวด
               การแสดง ฯลฯ
             </FieldName>
-            <AnswerBox disabled={true} autosize={true}>
-              {profile.profile.activities}
-            </AnswerBox>
+            <AnswerBox
+              disabled={true}
+              autosize={true}
+              value={profile.profile.activities}
+            />
           </Col>
           <Col xs={24} md={8}>
             <FieldName>รู้จักค่าย YWC จากไหน</FieldName>
             <FieldContent>
-              {profile.profile.knowCamp.map(item => (
-                <>
+              {profile.profile.knowCamp.map((item, i) => (
+                <Fragment key={i}>
                   {item}
                   <br />
-                </>
+                </Fragment>
               ))}
             </FieldContent>
           </Col>
@@ -244,9 +246,7 @@ const Info = () => {
                 <FieldName>
                   {i + 1}. {GENERAL_QUESTION[i]}
                 </FieldName>
-                <AnswerBox disabled={true} autosize={true}>
-                  {answer}
-                </AnswerBox>
+                <AnswerBox disabled={true} autosize={true} value={answer} />
               </Col>
             )
           })}
@@ -288,9 +288,7 @@ const Info = () => {
                 <FieldName>
                   {i + 1}. {MAJOR_QUESTION(profile.profile.major)[i]}
                 </FieldName>
-                <AnswerBox disabled={true} autosize={true}>
-                  {answer}
-                </AnswerBox>
+                <AnswerBox disabled={true} autosize={true} value={answer} />
               </Col>
             )
           })}

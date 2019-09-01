@@ -118,6 +118,7 @@ const Info = () => {
               validateForm().then(vErrors => {
                 if (Object.keys(vErrors).length > 0) {
                   notification.error({ message: 'คุณยังกรอกข้อมูลไม่ครบ' })
+                  handleSubmit()
                 } else {
                   handleSubmit()
                 }
@@ -176,6 +177,8 @@ const Info = () => {
                     </Radio.Group>
                   </Form.Item>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="ชื่อ"
