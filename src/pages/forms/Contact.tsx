@@ -167,6 +167,8 @@ const Contact = () => {
                     />
                   </FormItem>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <FormItem
                     label="ยาที่แพ้"
@@ -317,6 +319,8 @@ const Contact = () => {
                     />
                   </Form.Item>
                 </Col>
+              </Row>
+              <Row gutter={{ xs: 8, sm: 16, md: 24 }}>
                 <Col xs={24} md={12}>
                   <Form.Item
                     label="เบอร์ติดต่อฉุกเฉิน"
@@ -370,10 +374,17 @@ const Contact = () => {
                       checked={confirmMajor}
                       disabled={lockMajor}
                       onChange={e => setConfirmMajor(e.target.checked)}
+                      style={{ fontWeight: 'bold', fontSize: '18px' }}
                     >
                       ยืนยันการเลือกสาขา
                     </Checkbox>
-                    <p style={{ color: '#F5222D', marginTop: 24 }}>
+                    <p
+                      style={{
+                        color: '#F5222D',
+                        fontSize: '16px',
+                        marginTop: 24
+                      }}
+                    >
                       **หากยืนยันการเลือกสาขาแล้ว
                       จะไม่สามารถเปลี่ยนสาขาได้ภายหลัง
                     </p>
