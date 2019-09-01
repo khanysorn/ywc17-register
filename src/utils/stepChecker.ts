@@ -1,4 +1,4 @@
-const steps = ['info', 'contact', 'general', 'major']
+const steps = ['info', 'contact', 'general', 'major', 'summary']
 
 const stepChecker = (step: string, request: string) => {
   if (steps.indexOf(step) < steps.indexOf(request)) {

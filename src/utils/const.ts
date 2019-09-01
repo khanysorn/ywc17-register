@@ -16,7 +16,7 @@ export const MAJOR_QUESTION = (major: string) => {
         'ทำไมเราถึงต้องเลือกน้องให้เข้ามาเป็นหนึ่งใน Young Webmaster Camp สาขา Web Design',
         'ยกตัวอย่างเว็บไซต์หรือแอพพลิเคชั่นที่มีส่วนช่วยสังคมมา 1 ตัวอย่าง พร้อมทั้งอธิบายถึงเหตุผลที่เลือก',
         'จงยกตัวอย่างเว็บไซต์หน่วยงานภาครัฐที่น้องอยากทำการ Re-design UI และ UX มา 1 เว็บไซต์ พร้อมบอกเหตุผลที่เลือก และบอกจุดที่ควรจะแก้ไข และแนวทางในการแก้ปัญหา 3 จุดเป็นอย่างน้อย',
-        'Portfolio; UX Case Study หรือ UI Case Study'
+        'Portfolio; UX Case Study หรือ UI Case Study (ไฟล์ PDF ขนาดไม่เกิน 50 MB)'
       ]
     case 'marketing':
       return [

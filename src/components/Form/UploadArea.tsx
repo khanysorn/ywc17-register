@@ -1,4 +1,4 @@
-import { Button, Icon, message } from 'antd'
+import { Button, Icon, message, notification } from 'antd'
 import Upload from 'antd/lib/upload'
 import { UploadFile } from 'antd/lib/upload/interface'
 import { useObservable } from 'mobx-react-lite'
@@ -75,6 +75,10 @@ const UploadArea: React.FC<UploadAreaProps> = ({ onChange, value, name }) => {
 
   const customUpload = async ({ onError, onSuccess, file }: any) => {
     try {
+      if (file.size > 51200000) {
+        return notification.error({ message: 'ขนาดไฟล์ใหญ่เกิน 50 MB' })
+      }
+
       setUploading(true)
       const oldFileList = [...fileList]
       const uploaded = await storage
