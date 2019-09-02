@@ -158,17 +158,27 @@ const Info = () => {
             <FieldContent>{profile.profile.academicYear}</FieldContent>
           </Col>
           <Col xs={24} md={8}>
-            <FieldName>มหาวิทยาลัย</FieldName>
+            <FieldName>
+              {profile.profile.educationStatus === 'มัธยมปลาย'
+                ? 'สถานศึกษา'
+                : 'มหาวิทยาลัย'}
+            </FieldName>
             <FieldContent>{profile.profile.university}</FieldContent>
           </Col>
           <Col xs={24} md={8}>
-            <FieldName>คณะ</FieldName>
+            <FieldName>
+              {profile.profile.educationStatus === 'มัธยมปลาย'
+                ? 'แผนการเรียน'
+                : 'คณะ'}
+            </FieldName>
             <FieldContent>{profile.profile.faculty}</FieldContent>
           </Col>
-          <Col xs={24} md={8}>
-            <FieldName>สาขาวิชา</FieldName>
-            <FieldContent>{profile.profile.department}</FieldContent>
-          </Col>
+          {profile.profile.educationStatus !== 'มัธยมปลาย' && (
+            <Col xs={24} md={8}>
+              <FieldName>สาขาวิชา</FieldName>
+              <FieldContent>{profile.profile.department}</FieldContent>
+            </Col>
+          )}
         </Row>
         <Divider />
         <Title level={3} style={{ marginBottom: 28, textAlign: 'center' }}>
