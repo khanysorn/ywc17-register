@@ -4,6 +4,7 @@ import { Formik } from 'formik'
 import { get } from 'lodash'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
+import ReactGA from 'react-ga'
 import styled from 'styled-components'
 import * as Yup from 'yup'
 
@@ -54,6 +55,7 @@ const Major = () => {
   useEffect(() => {
     majorQuestionStore.getAnswers()
     contactStore.getAnswers()
+    ReactGA.pageview(window.location.pathname)
   }, [majorQuestionStore, contactStore])
   const storeValues = Object.assign({}, majorQuestionStore.formData)
   const initialValues = get(storeValues, 'answers', [])

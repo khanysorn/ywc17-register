@@ -4,6 +4,7 @@ import { Formik } from 'formik'
 import { get } from 'lodash'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
+import ReactGA from 'react-ga'
 import * as Yup from 'yup'
 
 import BackButton from '../../components/Form/BackButton'
@@ -30,6 +31,7 @@ const General = () => {
   // init
   useEffect(() => {
     generalQuestionStore.getAnswers()
+    ReactGA.pageview(window.location.pathname)
   }, [generalQuestionStore])
 
   const storeValues = Object.assign({}, generalQuestionStore.formData)

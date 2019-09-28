@@ -2,6 +2,7 @@ import { Avatar, Button, Col, Divider, Row, Typography } from 'antd'
 import { observer, useObservable } from 'mobx-react-lite'
 import moment from 'moment'
 import React, { Fragment, useEffect } from 'react'
+import ReactGA from 'react-ga'
 import styled from 'styled-components'
 
 import SummaryStore from '../stores/forms/summary'
@@ -57,6 +58,7 @@ const Info = () => {
 
   useEffect(() => {
     summaryStore.getInfos()
+    ReactGA.pageview(window.location.pathname)
   }, [summaryStore])
 
   if (summaryStore.loading) {
