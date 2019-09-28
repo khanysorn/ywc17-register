@@ -16,6 +16,7 @@ import { Formik, getIn } from 'formik'
 import { observer, useObservable } from 'mobx-react-lite'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import ReactGA from 'react-ga'
 import InfoStore from '../../stores/forms/info'
 
 import MapStoreToInitialValues from '../../utils/FormValidate/Info/initialValues'
@@ -36,6 +37,7 @@ const Info = () => {
   // init
   useEffect(() => {
     infoStore.getAnswers()
+    ReactGA.pageview(window.location.pathname)
   }, [infoStore])
 
   const [universities, setUniversites] = useState(UNIVERSITY)

@@ -13,6 +13,7 @@ import { Formik, getIn } from 'formik'
 import { findIndex } from 'lodash'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
+import ReactGA from 'react-ga'
 
 import ContactStore from '../../stores/forms/contact'
 import MapStoreToInitialValues from '../../utils/FormValidate/Contact/initialValues'
@@ -54,6 +55,7 @@ const Contact = () => {
   // init
   useEffect(() => {
     contactStore.getAnswers()
+    ReactGA.pageview(window.location.pathname)
   }, [contactStore])
 
   const storeValues = Object.assign({}, contactStore.formData)

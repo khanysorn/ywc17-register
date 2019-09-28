@@ -3,6 +3,7 @@ import { observer, useObservable } from 'mobx-react-lite'
 import moment from 'moment'
 import React, { Fragment, useEffect } from 'react'
 import styled from 'styled-components'
+import ReactGA from 'react-ga'
 
 import SummaryStore from '../stores/forms/summary'
 import history from '../utils/history'
@@ -57,6 +58,7 @@ const Info = () => {
 
   useEffect(() => {
     summaryStore.getInfos()
+    ReactGA.pageview(window.location.pathname)
   }, [summaryStore])
 
   if (summaryStore.loading) {

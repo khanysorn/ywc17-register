@@ -1,6 +1,7 @@
 import { Avatar } from 'antd'
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
+import ReactGA from 'react-ga'
 import styled from 'styled-components'
 
 import CenterContainer from '../components/CenterContainer'
@@ -23,6 +24,7 @@ const Completed = () => {
   const userStore = useObservable(UserStore)
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname)
     completedStore.getProfile()
   }, [completedStore])
   useEffect(() => {

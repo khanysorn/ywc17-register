@@ -1,5 +1,6 @@
 import { observer, useObservable } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
+import ReactGA from 'react-ga'
 import styled from 'styled-components'
 
 import AuthStore from '../stores/auth'
@@ -51,6 +52,7 @@ const Login = () => {
         }
         authStore.signingIn = false
       })
+    ReactGA.pageview(window.location.pathname)
   }, [authStore])
 
   const handleLogin = async () => {
