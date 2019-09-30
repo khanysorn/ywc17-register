@@ -1,5 +1,5 @@
 import { Provider } from 'mobx-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Loadable from 'react-loadable'
 import { Route, Router, Switch } from 'react-router'
 import { createGlobalStyle } from 'styled-components'
@@ -11,7 +11,9 @@ import store from './stores'
 import history from './utils/history'
 
 import Loading from './components/Loading'
+import Maintenance from './pages/Maintenance'
 import NotFound from './pages/NotFound'
+import { firestore } from './utils/firebase'
 
 const Login = Loadable({
   loader: () => import('./pages/Login'),
@@ -91,20 +93,37 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const App: React.FC = () => {
+  const [maintenance, setMaintenance] = useState(false)
+
+  useEffect(() => {
+    firestore
+      .collection('config')
+      .doc('maintenance')
+      .onSnapshot(snapshot => {
+        const data: any = snapshot.data()
+
+        setMaintenance(data.value)
+      })
+  }, [])
+
   return (
     <Provider store={store}>
       <Router history={history}>
         <GlobalStyle />
-        <Switch>
-          <Route exact={true} path="/" component={Login} />
-          <Route exact={true} path="/step/info" component={Info} />
-          <Route exact={true} path="/step/contact" component={Contact} />
-          <Route exact={true} path="/step/general" component={General} />
-          <Route exact={true} path="/step/major" component={Major} />
-          <Route exact={true} path="/step/summary" component={Summary} />
-          <Route exact={true} path="/completed" component={Completed} />
-          <Route path="*" component={NotFound} />
-        </Switch>
+        {maintenance ? (
+          <Maintenance />
+        ) : (
+          <Switch>
+            <Route exact={true} path="/" component={Login} />
+            <Route exact={true} path="/step/info" component={Info} />
+            <Route exact={true} path="/step/contact" component={Contact} />
+            <Route exact={true} path="/step/general" component={General} />
+            <Route exact={true} path="/step/major" component={Major} />
+            <Route exact={true} path="/step/summary" component={Summary} />
+            <Route exact={true} path="/completed" component={Completed} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        )}
       </Router>
     </Provider>
   )
