@@ -24,10 +24,7 @@ const Maintenance = () => {
   return (
     <CenterContainer>
       <div>
-        <Icon
-          style={{ color: '#E1426F', fontSize: '4em' }}
-          type="clock-circle"
-        />
+        <Icon style={{ color: '#E1426F', fontSize: '4em' }} type="warning" />
         <Heading>
           <b>ขออภัย</b> เรากำลังปรับปรุงระบบเพื่อประสบการณ์การสมัครที่ดีขึ้น
           กรุณารอสักครู่
