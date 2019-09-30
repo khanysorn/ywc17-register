@@ -26,7 +26,7 @@ const Maintenance = () => {
       <div>
         <Icon
           style={{ color: '#E1426F', fontSize: '4em' }}
-          type="close-circle"
+          type="clock-circle"
         />
         <Heading>
           <b>ขออภัย</b> เรากำลังปรับปรุงระบบเพื่อประสบการณ์การสมัครที่ดีขึ้น
