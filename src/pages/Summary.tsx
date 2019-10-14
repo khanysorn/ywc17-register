@@ -100,7 +100,7 @@ const Info = () => {
           <Col xs={24} md={8}>
             <FieldName>วัน-เดือน-ปีเกิด</FieldName>
             <FieldContent>
-              {moment(profile.profile.birthdate).calendar()}
+              {moment(profile.profile.birthdate).format('DD-MM-YYYY')}
             </FieldContent>
           </Col>
           <Col xs={24} md={8}>
