@@ -74,7 +74,7 @@ const Login = () => {
         <LoginSubHeading>
           โปรดเข้าสู่ระบบด้วย Facebook เพื่อสมัครค่าย
         </LoginSubHeading>
-        {moment().isBefore('10/16/2019 00:00:00 +0700') ? (
+        {moment().isBefore('16/10/2019 00:00:00 +0700') ? (
           <div>
             <LoginButton
               type="primary"
