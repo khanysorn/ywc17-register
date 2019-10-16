@@ -1,4 +1,5 @@
 import { observer, useObservable } from 'mobx-react-lite'
+import moment from 'moment'
 import React, { useEffect } from 'react'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
@@ -73,16 +74,20 @@ const Login = () => {
         <LoginSubHeading>
           โปรดเข้าสู่ระบบด้วย Facebook เพื่อสมัครค่าย
         </LoginSubHeading>
-        <div>
-          <LoginButton
-            type="primary"
-            icon="facebook"
-            size="large"
-            onClick={handleLogin}
-          >
-            Login with Facebook
-          </LoginButton>
-        </div>
+        {moment().isBefore('16/10/2019 00:00:00 +0700') ? (
+          <div>
+            <LoginButton
+              type="primary"
+              icon="facebook"
+              size="large"
+              onClick={handleLogin}
+            >
+              Login with Facebook
+            </LoginButton>
+          </div>
+        ) : (
+          <h1>ระบบปิดรับสมัครแล้ว</h1>
+        )}
       </LoginLayout>
     </CenterContainer>
   )
