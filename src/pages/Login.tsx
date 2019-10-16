@@ -10,7 +10,7 @@ import CenterContainer from '../components/CenterContainer'
 import Loading from '../components/Loading'
 // import firebase from '../utils/firebase'
 
-import { Button, message } from 'antd'
+import { Button } from 'antd'
 import Logo from '../assets/logo.svg'
 
 const LoginLayout = styled.div`
