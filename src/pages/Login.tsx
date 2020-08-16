@@ -74,20 +74,16 @@ const Login = () => {
         <LoginSubHeading>
           โปรดเข้าสู่ระบบด้วย Facebook เพื่อสมัครค่าย
         </LoginSubHeading>
-        {moment().isBefore('16/10/2020 00:00:00 +0700') ? (
-          <div>
-            <LoginButton
-              type="primary"
-              icon="facebook"
-              size="large"
-              onClick={handleLogin}
-            >
-              Login with Facebook
-            </LoginButton>
-          </div>
-        ) : (
-          <h1>ระบบปิดรับสมัครแล้ว</h1>
-        )}
+        <div>
+          <LoginButton
+            type="primary"
+            icon="facebook"
+            size="large"
+            onClick={handleLogin}
+          >
+            Login with Facebook
+          </LoginButton>
+        </div>
       </LoginLayout>
     </CenterContainer>
   )
