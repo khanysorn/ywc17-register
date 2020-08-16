@@ -1,5 +1,4 @@
 import { observer, useObservable } from 'mobx-react-lite'
-import moment from 'moment'
 import React, { useEffect } from 'react'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
