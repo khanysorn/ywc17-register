@@ -8,7 +8,7 @@ import AuthStore from '../stores/auth'
 
 import CenterContainer from '../components/CenterContainer'
 import Loading from '../components/Loading'
-// import firebase from '../utils/firebase'
+import firebase from '../utils/firebase'
 
 import { Button, message } from 'antd'
 import Logo from '../assets/logo.svg'
@@ -42,17 +42,17 @@ const Login = () => {
   const authStore = useObservable(AuthStore)
 
   useEffect(() => {
-    // authStore.checkAuthentication()
-    // firebase
-    //   .auth()
-    //   .getRedirectResult()
-    //   .then(result => {
-    //     if (result.user) {
-    //       message.info('กำลังเข้าสู่ระบบ')
-    //       authStore.doSignIn(result)
-    //     }
-    //     authStore.signingIn = false
-    //   })
+    authStore.checkAuthentication()
+    firebase
+      .auth()
+      .getRedirectResult()
+      .then(result => {
+        if (result.user) {
+          message.info('กำลังเข้าสู่ระบบ')
+          authStore.doSignIn(result)
+        }
+        authStore.signingIn = false
+      })
     ReactGA.pageview(window.location.pathname)
   }, [authStore])
 
@@ -74,7 +74,7 @@ const Login = () => {
         <LoginSubHeading>
           โปรดเข้าสู่ระบบด้วย Facebook เพื่อสมัครค่าย
         </LoginSubHeading>
-        {moment().isBefore('16/10/2019 00:00:00 +0700') ? (
+        {moment().isBefore('16/10/2020 00:00:00 +0700') ? (
           <div>
             <LoginButton
               type="primary"
