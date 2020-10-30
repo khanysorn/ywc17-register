@@ -1,3 +1,4 @@
+<img src="src/assets/logo.svg" align="center" />
 <h1 align="center">17th Young Webmaster Camp - Registration System</h1>
 <p align="center">Registration System คือระบบรับสมัครของค่าย Young Webmaster Camp</p>
 
