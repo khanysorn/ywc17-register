@@ -1,7 +1,6 @@
-<center><img src="src/assets/logo.svg" /></center>
 <h1 align="center">17th Young Webmaster Camp - Registration System</h1>
 <p align="center">Registration System คือระบบรับสมัครของค่าย Young Webmaster Camp</p>
-<p align="center">Link: <a href="https://register.ywc17.ywc.in.th/">https://register.ywc17.ywc.in.th/</p>
+<p align="center">Link: <a href="https://register.ywc17.ywc.in.th/">https://register.ywc17.ywc.in.th/</a></p>
 <img src="docs/preview.png">
  
 ## Feature
